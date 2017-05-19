@@ -19,7 +19,7 @@ export class AppComponent extends HTMLElement {
     }
     
     connectedCallback() {
-        this.innerHTML = require("./app.component.html");;
+        this.innerHTML = require("./auto-complete.component.html");;
         this._setEventListeners();
         this._searchBoxHTMLElement.setAttribute("api-key", this.apiKey);
     }

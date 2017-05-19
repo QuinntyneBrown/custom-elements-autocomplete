@@ -75,11 +75,11 @@
     <Content Include=".gitignore" />
     <Content Include="dist\app.js" />
     <Content Include="packages.config" />
-    <Content Include="src\auto-complete\app.component.html">
-      <DependentUpon>app.component.ts</DependentUpon>
+    <Content Include="src\auto-complete\auto-complete.component.html">
+      <DependentUpon>auto-complete.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\auto-complete\app.component.scss">
-      <DependentUpon>app.component.ts</DependentUpon>
+    <Content Include="src\auto-complete\auto-complete.component.scss">
+      <DependentUpon>auto-complete.component.ts</DependentUpon>
     </Content>
     <Content Include="src\header\header.component.html">
       <DependentUpon>header.component.ts</DependentUpon>
@@ -131,7 +131,7 @@
     <TypeScriptCompile Include="src\auto-complete\product-detail.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\product-item.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\index.ts" />
-    <TypeScriptCompile Include="src\auto-complete\app.component.ts" />
+    <TypeScriptCompile Include="src\auto-complete\auto-complete.component.ts" />
     <TypeScriptCompile Include="src\header\header.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\header\index.ts" />
