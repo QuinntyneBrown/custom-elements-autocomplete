@@ -1,2 +1,2 @@
-# vanilla-ts-autocomplete
-vanilla-ts-autocomplete
+# custom-elements-autocomplete
+custom-elements-autocomplete
