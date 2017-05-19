@@ -24,7 +24,6 @@ export class AppComponent extends HTMLElement {
         this._searchBoxHTMLElement.setAttribute("api-key", this.apiKey);
     }
     
-
     private _setEventListeners() {
         this._searchBoxHTMLElement.addEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
     }

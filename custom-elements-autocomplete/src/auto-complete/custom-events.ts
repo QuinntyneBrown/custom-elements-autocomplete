@@ -1,4 +1,4 @@
-﻿/// <reference path="app.d.ts" />
+﻿/// <reference path="auto-complete.d.ts" />
 
 export const AppConstants = {
     PRODUCT_ITEM_CLICK: "PRODUCT_ITEM_CLICK",

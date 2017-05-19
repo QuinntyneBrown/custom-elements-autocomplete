@@ -1,4 +1,4 @@
-/// <reference path="app.d.ts" />
+/// <reference path="auto-complete.d.ts" />
 
 export class ProductDetailComponent extends HTMLElement {
     constructor() {
