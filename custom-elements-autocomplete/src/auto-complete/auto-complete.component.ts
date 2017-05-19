@@ -1,4 +1,4 @@
-import { AppConstants, ProductItemClick, ShowProductDetail } from "./custom-events";
+import { constants, ProductItemClick, ShowProductDetail } from "./custom-events";
 
 export class AppComponent extends HTMLElement {
     constructor() {
@@ -25,7 +25,7 @@ export class AppComponent extends HTMLElement {
     }
     
     private _setEventListeners() {
-        this._searchBoxHTMLElement.addEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
+        this._searchBoxHTMLElement.addEventListener(constants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
     }
 
     public updateProductDetail(e: ProductItemClick) {   
@@ -33,7 +33,7 @@ export class AppComponent extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this._searchBoxHTMLElement.removeEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
+        this._searchBoxHTMLElement.removeEventListener(constants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
     }
 
     attributeChangedCallback (name, oldValue, newValue) {

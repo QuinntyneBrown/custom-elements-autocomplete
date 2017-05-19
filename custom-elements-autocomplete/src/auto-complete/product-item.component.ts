@@ -1,4 +1,4 @@
-import { ProductItemClick, AppConstants } from "./custom-events";
+import { ProductItemClick, constants } from "./custom-events";
 
 export class ProductItemComponent extends HTMLElement {
     constructor() {

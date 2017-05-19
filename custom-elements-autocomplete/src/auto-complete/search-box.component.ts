@@ -17,10 +17,10 @@ export class SearchBoxComponent extends HTMLElement {
     private get _resultsHTMLElement() { return this.querySelector(".results"); }
 
     public set showProduct(value: Product) {
-        let productItems = this.querySelectorAll("ce-product-item");
+        let productItemElements = this.querySelectorAll("ce-product-item");
         
-        for (let i = 0; i < productItems.length; i++) {
-            (productItems[i] as any).showProduct = value;
+        for (let i = 0; i < productItemElements.length; i++) {
+            (productItemElements[i] as any).showProduct = value;
         }
     }
 
@@ -35,8 +35,8 @@ export class SearchBoxComponent extends HTMLElement {
     disconnectedCallback() { this._inputHTMLElement.removeEventListener("keyup", this.fetchResults); }
 
     private async fetchResults() {
-        let results = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
-        this.products = (await results.json() as GetProductsResponseJSON).result;
+        let response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
+        this.products = (await response.json() as GetProductsResponseJSON).result;
     }      
 
     public set products(value:Array<Product>) {
