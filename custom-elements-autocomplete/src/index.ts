@@ -1,5 +1,5 @@
 import "./app.component";
-import "./autocomplete.component";
+import "./search-box.component";
 import "./product-detail.component";
 import "./product-item.component";
 import "./header.component";

@@ -1,6 +1,6 @@
 /// <reference path="app.d.ts" />
 
-export class AutoCompleteComponent extends HTMLElement {
+export class SearchBoxComponent extends HTMLElement {
     constructor() {
         super();
         this.fetchResults = this.fetchResults.bind(this);
@@ -17,7 +17,7 @@ export class AutoCompleteComponent extends HTMLElement {
     private get _resultsHTMLElement() { return this.querySelector(".results"); }
 
     public set showProduct(value: Product) {
-        var productItems = this.querySelectorAll("ce-product-item");
+        let productItems = this.querySelectorAll("ce-product-item");
         
         for (let i = 0; i < productItems.length; i++) {
             (productItems[i] as any).showProduct = value;
@@ -25,7 +25,7 @@ export class AutoCompleteComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this.innerHTML = require("./autocomplete.component.html");
+        this.innerHTML = require("./search-box.component.html");
         this._setEventListeners();
     }
 
@@ -35,9 +35,8 @@ export class AutoCompleteComponent extends HTMLElement {
     disconnectedCallback() { this._inputHTMLElement.removeEventListener("keyup", this.fetchResults); }
 
     private async fetchResults() {
-        var results = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
-        var json = await results.json() as GetProductsResponseJSON;
-        this.products = json.result;
+        let results = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
+        this.products = (await results.json() as GetProductsResponseJSON).result;
     }      
 
     public set products(value:Array<Product>) {
@@ -58,7 +57,6 @@ export class AutoCompleteComponent extends HTMLElement {
     }  
 
     public apiKey: string;
-
 }
 
-customElements.define(`ce-autocomplete`,AutoCompleteComponent);
+customElements.define(`ce-search-box`,SearchBoxComponent);

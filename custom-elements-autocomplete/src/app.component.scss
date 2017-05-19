@@ -1,25 +1,24 @@
-ce-app {
+ce-auto-complete {
     display:block;
-    width:100%;
+    width:calc(100% - 40px);
     margin:30px 20px;
 
-    .autocomplete-container,
-    ce-product-detail {
+    ce-search-box {
         display:inline-block;
         position:relative;
         float:left;
-        margin:0 10px;
-        width:calc(50% - 20px);
+        margin:0 20px;
+        width:calc(100% - 40px);
     }
 }
 
-ce-app::after {
+ce-auto-complete::after {
     clear:both;
     display:block;
     content: " ";
 }
 
 @import "header.component";
-@import "autocomplete.component";
+@import "search-box.component";
 @import "product-detail.component";
 @import "product-item.component";

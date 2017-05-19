@@ -8,7 +8,7 @@ export class AppComponent extends HTMLElement {
 
     public apiKey: string;
 
-    private get _autoCompleteHTMLElement() { return this.querySelector("ce-autocomplete"); }
+    private get _searchBoxHTMLElement() { return this.querySelector("ce-search-box"); }
     
     private get _productDetailHTMLElement() { return this.querySelector("ce-product-detail"); }
 
@@ -21,20 +21,20 @@ export class AppComponent extends HTMLElement {
     connectedCallback() {
         this.innerHTML = require("./app.component.html");;
         this._setEventListeners();
-        this._autoCompleteHTMLElement.setAttribute("api-key", this.apiKey);
+        this._searchBoxHTMLElement.setAttribute("api-key", this.apiKey);
     }
     
 
     private _setEventListeners() {
-        this._autoCompleteHTMLElement.addEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
+        this._searchBoxHTMLElement.addEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
     }
 
     public updateProductDetail(e: ProductItemClick) {   
-        (this._autoCompleteHTMLElement as any).showProduct = e.detail.product;
+        (this._searchBoxHTMLElement as any).showProduct = e.detail.product;
     }
 
     disconnectedCallback() {
-        this._autoCompleteHTMLElement.removeEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
+        this._searchBoxHTMLElement.removeEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
@@ -46,4 +46,4 @@ export class AppComponent extends HTMLElement {
     }    
 }
 
-customElements.define(`ce-app`, AppComponent);
+customElements.define(`ce-auto-complete`, AppComponent);

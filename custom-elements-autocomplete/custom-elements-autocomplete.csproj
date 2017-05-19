@@ -101,6 +101,12 @@
     <Content Include="src\product-item.component.scss">
       <DependentUpon>product-item.component.ts</DependentUpon>
     </Content>
+    <Content Include="src\search-box.component.html">
+      <DependentUpon>search-box.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\search-box.component.scss">
+      <DependentUpon>search-box.component.ts</DependentUpon>
+    </Content>
     <Content Include="webpack.config.js" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
@@ -113,21 +119,15 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="src\autocomplete.component.html">
-      <DependentUpon>autocomplete.component.ts</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="src\autocomplete.component.scss">
-      <DependentUpon>autocomplete.component.ts</DependentUpon>
-    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="src\app.d.ts" />
-    <TypeScriptCompile Include="src\autocomplete.component.ts" />
+    <TypeScriptCompile Include="src\search-box.component.ts" />
     <TypeScriptCompile Include="src\custom-events.ts" />
     <TypeScriptCompile Include="src\load-style.ts" />
     <TypeScriptCompile Include="src\product-detail.component.ts" />
