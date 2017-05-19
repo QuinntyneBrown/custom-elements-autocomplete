@@ -115,10 +115,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="examples\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\app.d.ts" />
