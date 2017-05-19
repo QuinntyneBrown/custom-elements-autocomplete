@@ -15,6 +15,8 @@ export class ProductDetailComponent extends HTMLElement {
 
     private get categoryHTMLElement() { return this.querySelector(".product-detail-category"); }
 
+    private get tastingNoteHTMLElement() { return this.querySelector(".product-detail-tasting-note"); }
+
     static get observedAttributes () {
         return [
             "product"
@@ -32,6 +34,7 @@ export class ProductDetailComponent extends HTMLElement {
             this.fullImageHTMLElement.src = this._product.image_url;
             this.priceHTMLElement.innerHTML = `$${(this._product.price_in_cents / 100).toFixed(2)}`;
             this.categoryHTMLElement.textContent = this._product.primary_category;
+            this.tastingNoteHTMLElement.textContent = this._product.tasting_note;
         }
     }
     
