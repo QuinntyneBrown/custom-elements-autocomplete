@@ -1,11 +1,12 @@
-import { AppConstants, ProductItemClick } from "./custom-events";
+import { AppConstants, ProductItemClick, ShowProductDetail } from "./custom-events";
 
 export class AppComponent extends HTMLElement {
     constructor() {
         super();  
-
         this.updateProductDetail = this.updateProductDetail.bind(this);      
     }
+
+    public apiKey: string;
 
     private get _autoCompleteHTMLElement() { return this.querySelector("ce-autocomplete"); }
     
@@ -16,12 +17,11 @@ export class AppComponent extends HTMLElement {
             "api-key"
         ];
     }
-
-    private _apiKey: string;
-
+    
     connectedCallback() {
         this.innerHTML = require("./app.component.html");;
         this._setEventListeners();
+        this._autoCompleteHTMLElement.setAttribute("api-key", this.apiKey);
     }
     
 
@@ -29,8 +29,8 @@ export class AppComponent extends HTMLElement {
         this._autoCompleteHTMLElement.addEventListener(AppConstants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
     }
 
-    public updateProductDetail(e: ProductItemClick) {        
-        this._productDetailHTMLElement.setAttribute("product", JSON.stringify(e.detail.product));
+    public updateProductDetail(e: ProductItemClick) {   
+        (this._autoCompleteHTMLElement as any).showProduct = e.detail.product;
     }
 
     disconnectedCallback() {
@@ -40,6 +40,7 @@ export class AppComponent extends HTMLElement {
     attributeChangedCallback (name, oldValue, newValue) {
         switch (name) {
             case "api-key":
+                this.apiKey = newValue;
                 break;
         }
     }    

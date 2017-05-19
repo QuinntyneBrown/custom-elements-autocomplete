@@ -1,7 +1,9 @@
 ce-autocomplete {
     display:block;
+
     input {
-        width:100%;
+        width:calc(100% - 20px);
+        padding: 0 10px;
         line-height:3em;
         margin-bottom:30px;
     }

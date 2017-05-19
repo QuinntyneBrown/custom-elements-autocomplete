@@ -1,3 +1,17 @@
 ce-product-detail {
     display:block;
+
+    img {
+        height:110px;
+        display:block;
+    }
+
+    .product-detail-category {
+        display:inline-block;
+        line-height:2.5em;
+        font-size:.6em;
+        padding: 0 10px;
+        color:#fff;
+        background-color:orangered;
+    }
 }

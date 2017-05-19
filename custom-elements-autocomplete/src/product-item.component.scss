@@ -1,3 +1,37 @@
 ce-product-item {
+    display:block;
     cursor:pointer;
+    margin: 20px 0;
+    height:110px;
+    transition: height 500ms;
+    overflow:hidden;
+
+    img, .product-item-details {
+        display:inline-block;
+        float:left;
+    }
+
+    img {
+        height:110px;
+        border:0;
+    }
+
+    .product-item-details {
+        width: calc(100% - 140px);
+        padding:0 20px;
+    }
+
+    h2 {
+        font-size:.8em;
+    }
+}
+
+ce-product-item.active {
+    height: 240px;
+}
+
+.product-item-container:after {
+    clear:both;
+    content: " ";
+    display:block;
 }

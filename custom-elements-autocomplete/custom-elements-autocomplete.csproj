@@ -14,8 +14,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>vanilla_ts_autocomplete</RootNamespace>
-    <AssemblyName>vanilla-ts-autocomplete</AssemblyName>
+    <RootNamespace>custom_elements_autocomplete</RootNamespace>
+    <AssemblyName>custom-elements-autocomplete</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -75,12 +75,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="dist\app.js" />
     <Content Include="packages.config" />
     <Content Include="src\app.component.html">
       <DependentUpon>app.component.ts</DependentUpon>
     </Content>
     <Content Include="src\app.component.scss">
       <DependentUpon>app.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\header.component.html">
+      <DependentUpon>header.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\header.component.scss">
+      <DependentUpon>header.component.ts</DependentUpon>
     </Content>
     <Content Include="src\product-detail.component.html">
       <DependentUpon>product-detail.component.ts</DependentUpon>
@@ -97,6 +104,9 @@
     <Content Include="webpack.config.js" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
+    <Content Include="dist\app.js.map" />
+    <None Include="Properties\PublishProfiles\custom-elements-autocomplete - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\custom-elements-autocomplete - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -114,10 +124,7 @@
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="examples\" />
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="src\app.d.ts" />
     <TypeScriptCompile Include="src\autocomplete.component.ts" />
@@ -127,6 +134,7 @@
     <TypeScriptCompile Include="src\product-item.component.ts" />
     <TypeScriptCompile Include="src\index.ts" />
     <TypeScriptCompile Include="src\app.component.ts" />
+    <TypeScriptCompile Include="src\header.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

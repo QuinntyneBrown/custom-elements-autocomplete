@@ -19,6 +19,7 @@ ce-app::after {
     content: " ";
 }
 
+@import "header.component";
 @import "autocomplete.component";
 @import "product-detail.component";
 @import "product-item.component";

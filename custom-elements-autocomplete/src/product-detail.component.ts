@@ -13,6 +13,8 @@ export class ProductDetailComponent extends HTMLElement {
 
     private get priceHTMLElement() { return this.querySelector(".product-detail-price"); }
 
+    private get categoryHTMLElement() { return this.querySelector(".product-detail-category"); }
+
     static get observedAttributes () {
         return [
             "product"
@@ -28,7 +30,8 @@ export class ProductDetailComponent extends HTMLElement {
         if (this._product) {
             this.nameHTMLElement.innerHTML = this._product.name;
             this.fullImageHTMLElement.src = this._product.image_url;
-            this.priceHTMLElement.innerHTML = `$${this._product.price_in_cents / 100}`;
+            this.priceHTMLElement.innerHTML = `$${(this._product.price_in_cents / 100).toFixed(2)}`;
+            this.categoryHTMLElement.textContent = this._product.primary_category;
         }
     }
     
