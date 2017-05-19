@@ -9,7 +9,8 @@ export class ProductItemClick extends CustomEvent {
         super(AppConstants.PRODUCT_ITEM_CLICK, {
             detail: {
                 product
-            }
+            },
+            bubbles:true
         });
     }
 }

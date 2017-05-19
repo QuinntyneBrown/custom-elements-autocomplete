@@ -7,11 +7,11 @@ export class ProductDetailComponent extends HTMLElement {
 
     private _product: Product;
 
-    private get nameHTMLElement() { return this.querySelector("h3"); }
+    private get nameHTMLElement() { return this.querySelector(".product-detail-name"); }
 
     private get fullImageHTMLElement() { return this.querySelector("img"); }
 
-    private get priceHTMLElement() { return this.querySelector("h3"); }
+    private get priceHTMLElement() { return this.querySelector(".product-detail-price"); }
 
     static get observedAttributes () {
         return [
@@ -25,14 +25,18 @@ export class ProductDetailComponent extends HTMLElement {
     }
 
     private async _bind() {
-
+        if (this._product) {
+            this.nameHTMLElement.innerHTML = this._product.name;
+            this.fullImageHTMLElement.src = this._product.image_url;
+            this.priceHTMLElement.innerHTML = `$${this._product.price_in_cents / 100}`;
+        }
     }
     
     attributeChangedCallback (name, oldValue, newValue) {
         switch (name) {
             case "product":
                 this._product = JSON.parse(newValue);
-
+                
                 if (this.parentNode)
                     this._bind();
                 break;
