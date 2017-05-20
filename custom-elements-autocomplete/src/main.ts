@@ -1,6 +1,6 @@
 ﻿import "./auto-complete";
 import "./header";
-import { loadStyle } from "./auto-complete/load-style";
+import { loadStyle } from "./utilities/load-style";
 
 const autoCompleteStyles = require("./auto-complete/auto-complete.component.scss");
 

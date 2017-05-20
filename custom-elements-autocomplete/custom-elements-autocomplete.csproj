@@ -127,7 +127,8 @@
     <TypeScriptCompile Include="src\auto-complete\auto-complete.d.ts" />
     <TypeScriptCompile Include="src\auto-complete\search-box.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\custom-events.ts" />
-    <TypeScriptCompile Include="src\auto-complete\load-style.ts" />
+    <TypeScriptCompile Include="src\utilities\dom-handler.ts" />
+    <TypeScriptCompile Include="src\utilities\load-style.ts" />
     <TypeScriptCompile Include="src\auto-complete\product-detail.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\product-item.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\index.ts" />
@@ -135,6 +136,7 @@
     <TypeScriptCompile Include="src\header\header.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\header\index.ts" />
+    <TypeScriptCompile Include="src\utilities\index.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

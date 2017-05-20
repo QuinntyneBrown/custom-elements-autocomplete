@@ -1,7 +1,8 @@
 import { ProductItemClick, constants } from "./custom-events";
+import { DomHandler } from "../utilities";
 
 export class ProductItemComponent extends HTMLElement {
-    constructor() {
+    constructor(private _domHandler: DomHandler = DomHandler.instance) {
         super();
         this.dispatchProductItemClickEvent = this.dispatchProductItemClickEvent.bind(this);        
     }
@@ -33,10 +34,10 @@ export class ProductItemComponent extends HTMLElement {
     }
     
     public set showProduct(value:Product) {
-        if (this.product.id == value.id) {
-            this.classList.add("active")
+        if (this.product.id == value.id) {            
+            this._domHandler.addClass(this, "active");
         } else {
-            this.classList.remove("active");
+            this._domHandler.removeClass(this, "active");
         }
     }
 
