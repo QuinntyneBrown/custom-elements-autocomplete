@@ -34,7 +34,7 @@ export class SearchBoxComponent extends HTMLElement {
 
     private async fetchResults() {
         let response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
-        let searchResultItems = (await response.json() as SearchResponseJSON).result;
+        let searchResultItems = (await response.json() as SearchResponseJSON).result;        
         this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));
     }      
 

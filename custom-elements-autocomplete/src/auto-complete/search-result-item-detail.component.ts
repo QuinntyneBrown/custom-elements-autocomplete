@@ -13,15 +13,15 @@ export class SearchResultItemDetailComponent extends HTMLElement {
 
     private _searchResultItem: SearchResultItem;
 
-    private get nameHTMLElement() { return this.shadowRoot.querySelector(".product-detail-name"); }
+    private get nameHTMLElement() { return this.shadowRoot.querySelector(".search-result-item-detail-name"); }
 
     private get fullImageHTMLElement() { return this.shadowRoot.querySelector("img"); }
 
-    private get priceHTMLElement() { return this.shadowRoot.querySelector(".product-detail-price"); }
+    private get priceHTMLElement() { return this.shadowRoot.querySelector(".search-result-item-detail-price"); }
 
-    private get categoryHTMLElement() { return this.shadowRoot.querySelector(".product-detail-category"); }
+    private get categoryHTMLElement() { return this.shadowRoot.querySelector(".search-result-item-detail-category"); }
 
-    private get tastingNoteHTMLElement() { return this.shadowRoot.querySelector(".product-detail-tasting-note"); }
+    private get tastingNoteHTMLElement() { return this.shadowRoot.querySelector(".search-result-item-detail-tasting-note"); }
 
     static get observedAttributes () {
         return [
@@ -36,17 +36,19 @@ export class SearchResultItemDetailComponent extends HTMLElement {
 
     private async _bind() {
         if (this._searchResultItem) {
-            this.nameHTMLElement.innerHTML = this._searchResultItem.name;
-            this.fullImageHTMLElement.src = this._searchResultItem.image_url;
-            this.priceHTMLElement.innerHTML = `$${(this._searchResultItem.price_in_cents / 100).toFixed(2)}`;
+            
             this.categoryHTMLElement.textContent = this._searchResultItem.primary_category;
+            this.fullImageHTMLElement.src = this._searchResultItem.image_url;
+            this.nameHTMLElement.innerHTML = this._searchResultItem.name;
+            this.priceHTMLElement.innerHTML = `$${(this._searchResultItem.price_in_cents / 100).toFixed(2)}`;
+            
             this.tastingNoteHTMLElement.textContent = this._searchResultItem.tasting_note;
         }
     }
     
     attributeChangedCallback (name, oldValue, newValue) {
         switch (name) {
-            case "search-result-item":
+            case "search-result-item":                
                 this._searchResultItem = JSON.parse(newValue);
                 
                 if (this.parentNode)

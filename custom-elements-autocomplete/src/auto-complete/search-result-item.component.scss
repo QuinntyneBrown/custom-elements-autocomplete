@@ -6,7 +6,7 @@
     transition: height 500ms;
     overflow:hidden;
 
-    img, .product-item-details {
+    img, .search-result-item-details {
         display:inline-block;
         float:left;
     }
@@ -16,7 +16,7 @@
         border:0;
     }
 
-    .product-item-details {
+    .search-result-item-details {
         width: calc(100% - 140px);
         padding:0 20px;
     }
@@ -26,11 +26,9 @@
     }
 }
 
-:host.active {
-    height: 350px;
-}
 
-.product-item-container:after {
+
+.search-result-item-container:after {
     clear:both;
     content: " ";
     display:block;

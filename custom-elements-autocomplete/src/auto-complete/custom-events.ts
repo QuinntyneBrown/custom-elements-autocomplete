@@ -12,7 +12,8 @@ export class SearchResultItemsFetched extends CustomEvent {
             detail: {
                 searchResultItems
             },
-            bubbles: true
+            bubbles: true,
+            cancelable: false
         });
     }
 }
@@ -23,7 +24,8 @@ export class SearchResultItemClick extends CustomEvent {
             detail: {
                 searchResultItem
             },
-            bubbles:true
+            bubbles: true,
+            cancelable:false
         });
     }
 }
@@ -34,7 +36,8 @@ export class ShowSearchResultItemDetail extends CustomEvent {
             detail: {
                 searchResultItem
             },
-            bubbles: true
+            bubbles: true,
+            cancelable: false
         });
     }
 }
