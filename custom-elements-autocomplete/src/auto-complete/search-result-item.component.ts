@@ -1,5 +1,4 @@
 import { SearchResultItemClick, constants } from "./custom-events";
-import { DomHandler } from "../utilities";
 
 const htmlTemplate = require("./search-result-item.component.html");
 const styles = require("./search-result-item.component.scss");
@@ -8,7 +7,7 @@ const template = document.createElement("template");
 template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
 
 export class SearchResultItemComponent extends HTMLElement {
-    constructor(private _domHandler: DomHandler = DomHandler.instance) {
+    constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.dispatchSearchResultItemClickEvent = this.dispatchSearchResultItemClickEvent.bind(this);        
@@ -38,9 +37,11 @@ export class SearchResultItemComponent extends HTMLElement {
 
     private _bind() {
         this.headingHTMLElement.innerHTML = this.searchResultItem.name;
-        this.thumbnailHTMLElement.src = this.searchResultItem.image_thumb_url;
+        this.thumbnailHTMLElement.src = this.searchResultItem.image_thumb_url == null ? this.defultImageUrl : this.searchResultItem.image_thumb_url;
         this.searchResultItemDetailsHTMLElement.setAttribute("search-result-item",JSON.stringify(this.searchResultItem));
     }
+
+    public get defultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
 
     private _setEventListeners() {
         this.addEventListener("click", this.dispatchSearchResultItemClickEvent);
@@ -56,7 +57,6 @@ export class SearchResultItemComponent extends HTMLElement {
 
     private dispatchSearchResultItemClickEvent() {                
         this.fn();
-        this.dispatchEvent(new CustomEvent("random", { bubbles: true }));
     }
 
     public fn: { ():void };
@@ -72,8 +72,7 @@ export class SearchResultItemComponent extends HTMLElement {
                     this._bind();
                 break;
         }
-    }
-    
+    }   
 }
 
 customElements.define(`ce-search-result-item`,SearchResultItemComponent);

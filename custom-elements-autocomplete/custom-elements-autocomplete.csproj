@@ -7,7 +7,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion></ProductVersion>
+    <ProductVersion>
+    </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{ABCA776D-F2BD-4C04-A937-92BFF5C089F3}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -22,7 +23,8 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
     <TypeScriptEmitDecoratorMetadata>true</TypeScriptEmitDecoratorMetadata>
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
@@ -133,7 +135,6 @@
     <TypeScriptCompile Include="src\auto-complete\auto-complete.d.ts" />
     <TypeScriptCompile Include="src\auto-complete\search-box.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\custom-events.ts" />
-    <TypeScriptCompile Include="src\utilities\dom-handler.ts" />
     <TypeScriptCompile Include="src\auto-complete\search-result-item-detail.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\search-result-item.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\index.ts" />
@@ -141,7 +142,6 @@
     <TypeScriptCompile Include="src\header\header.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\header\index.ts" />
-    <TypeScriptCompile Include="src\utilities\index.ts" />
     <TypeScriptCompile Include="src\auto-complete\search-result-items.component.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +166,8 @@
           <IISUrl>http://localhost:49353/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

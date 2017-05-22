@@ -21,8 +21,8 @@ export class SearchResultItemsComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this.shadowRoot.appendChild(document.importNode(template.content, true));
-        this._bind();
+        this.shadowRoot.appendChild(document.importNode(template.content, true));        
+        this._bind();        
     }
 
     private async _bind() {
