@@ -1,17 +1,21 @@
 import { constants, ProductItemClick, ShowProductDetail } from "./custom-events";
+const htmlTemplate = require("./auto-complete.component.html");
+const styles = require("./auto-complete.component.scss");
 
-export class AppComponent extends HTMLElement {
+const template = document.createElement("template");
+template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
+
+export class AutoCompleteComponent extends HTMLElement {
     constructor() {
         super();  
+        this.attachShadow({ mode: 'open' });
         this.updateProductDetail = this.updateProductDetail.bind(this);      
     }
 
     public apiKey: string;
 
-    private get _searchBoxHTMLElement() { return this.querySelector("ce-search-box"); }
+    private get _searchBoxHTMLElement() { return this.shadowRoot.querySelector("ce-search-box"); }
     
-    private get _productDetailHTMLElement() { return this.querySelector("ce-product-detail"); }
-
     static get observedAttributes() {
         return [
             "api-key"
@@ -19,7 +23,7 @@ export class AppComponent extends HTMLElement {
     }
     
     connectedCallback() {
-        this.innerHTML = require("./auto-complete.component.html");;
+        this.shadowRoot.appendChild(document.importNode(template.content, true));
         this._setEventListeners();
         this._searchBoxHTMLElement.setAttribute("api-key", this.apiKey);
     }
@@ -45,4 +49,4 @@ export class AppComponent extends HTMLElement {
     }    
 }
 
-customElements.define(`ce-auto-complete`, AppComponent);
+customElements.define(`ce-auto-complete`, AutoCompleteComponent);

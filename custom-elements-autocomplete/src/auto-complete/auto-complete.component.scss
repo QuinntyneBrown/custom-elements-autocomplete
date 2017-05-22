@@ -1,4 +1,4 @@
-ce-auto-complete {
+:host {
     display:block;
     width:calc(100% - 40px);
     margin:30px 20px;
@@ -12,12 +12,8 @@ ce-auto-complete {
     }
 }
 
-ce-auto-complete::after {
+:host::after {
     clear:both;
     display:block;
     content: " ";
 }
-
-@import "search-box.component";
-@import "product-detail.component";
-@import "product-item.component";

@@ -1,4 +1,4 @@
-ce-product-item {
+:host {
     display:block;
     cursor:pointer;
     margin: 20px 0;
@@ -26,7 +26,7 @@ ce-product-item {
     }
 }
 
-ce-product-item.active {
+:host.active {
     height: 350px;
 }
 

@@ -6,7 +6,7 @@ export const constants = {
 }
 
 export class ProductItemClick extends CustomEvent {
-    constructor(product:Product) {
+    constructor(product:SearchResultItem) {
         super(constants.PRODUCT_ITEM_CLICK, {
             detail: {
                 product
@@ -17,7 +17,7 @@ export class ProductItemClick extends CustomEvent {
 }
 
 export class ShowProductDetail extends CustomEvent {
-    constructor(product: Product) {
+    constructor(product: SearchResultItem) {
         super(constants.SHOW_PRODUCT_DETAIL, {
             detail: {
                 product

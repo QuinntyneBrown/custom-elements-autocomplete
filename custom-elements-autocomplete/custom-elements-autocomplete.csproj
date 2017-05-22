@@ -81,23 +81,29 @@
     <Content Include="src\auto-complete\auto-complete.component.scss">
       <DependentUpon>auto-complete.component.ts</DependentUpon>
     </Content>
+    <Content Include="src\auto-complete\search-result-item-detail.component.html">
+      <DependentUpon>search-result-item-detail.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\auto-complete\search-result-item-detail.component.scss">
+      <DependentUpon>search-result-item-detail.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\auto-complete\search-result-item.component.html">
+      <DependentUpon>search-result-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\auto-complete\search-result-item.component.scss">
+      <DependentUpon>search-result-item.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\auto-complete\search-result-items.component.html">
+      <DependentUpon>search-result-items.component.ts</DependentUpon>
+    </Content>
+    <Content Include="src\auto-complete\search-result-items.component.scss">
+      <DependentUpon>search-result-items.component.ts</DependentUpon>
+    </Content>
     <Content Include="src\header\header.component.html">
       <DependentUpon>header.component.ts</DependentUpon>
     </Content>
     <Content Include="src\header\header.component.scss">
       <DependentUpon>header.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\auto-complete\product-detail.component.html">
-      <DependentUpon>product-detail.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\auto-complete\product-detail.component.scss">
-      <DependentUpon>product-detail.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\auto-complete\product-item.component.html">
-      <DependentUpon>product-item.component.ts</DependentUpon>
-    </Content>
-    <Content Include="src\auto-complete\product-item.component.scss">
-      <DependentUpon>product-item.component.ts</DependentUpon>
     </Content>
     <Content Include="src\auto-complete\search-box.component.html">
       <DependentUpon>search-box.component.ts</DependentUpon>
@@ -128,15 +134,15 @@
     <TypeScriptCompile Include="src\auto-complete\search-box.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\custom-events.ts" />
     <TypeScriptCompile Include="src\utilities\dom-handler.ts" />
-    <TypeScriptCompile Include="src\utilities\load-style.ts" />
-    <TypeScriptCompile Include="src\auto-complete\product-detail.component.ts" />
-    <TypeScriptCompile Include="src\auto-complete\product-item.component.ts" />
+    <TypeScriptCompile Include="src\auto-complete\search-result-item-detail.component.ts" />
+    <TypeScriptCompile Include="src\auto-complete\search-result-item.component.ts" />
     <TypeScriptCompile Include="src\auto-complete\index.ts" />
     <TypeScriptCompile Include="src\auto-complete\auto-complete.component.ts" />
     <TypeScriptCompile Include="src\header\header.component.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\header\index.ts" />
     <TypeScriptCompile Include="src\utilities\index.ts" />
+    <TypeScriptCompile Include="src\auto-complete\search-result-items.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

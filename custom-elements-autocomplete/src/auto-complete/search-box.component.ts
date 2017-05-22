@@ -1,8 +1,14 @@
 /// <reference path="auto-complete.d.ts" />
+const htmlTemplate = require("./search-box.component.html");
+const styles = require("./search-box.component.scss")
+
+const template = document.createElement("template");
+template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
 
 export class SearchBoxComponent extends HTMLElement {
     constructor() {
         super();
+        this.attachShadow({ mode: 'open' });
         this.fetchResults = this.fetchResults.bind(this);
     }
 
@@ -12,12 +18,12 @@ export class SearchBoxComponent extends HTMLElement {
         ];
     }
 
-    private get _inputHTMLElement() { return this.querySelector("input"); }
+    private get _inputHTMLElement() { return this.shadowRoot.querySelector("input"); }
 
-    private get _resultsHTMLElement() { return this.querySelector(".results"); }
+    private get _resultsHTMLElement() { return this.shadowRoot.querySelector(".results"); }
 
-    public set showProduct(value: Product) {
-        let productItemElements = this.querySelectorAll("ce-product-item");
+    public set showProduct(value: SearchResultItem) {
+        let productItemElements = this.shadowRoot.querySelectorAll("ce-search-result-item");
         
         for (let i = 0; i < productItemElements.length; i++) {
             (productItemElements[i] as any).showProduct = value;
@@ -25,7 +31,7 @@ export class SearchBoxComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this.innerHTML = require("./search-box.component.html");
+        this.shadowRoot.appendChild(document.importNode(template.content, true));
         this._setEventListeners();
     }
 
@@ -36,10 +42,10 @@ export class SearchBoxComponent extends HTMLElement {
 
     private async fetchResults() {
         let response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
-        this.products = (await response.json() as GetProductsResponseJSON).result;
+        this.products = (await response.json() as SearchResponseJSON).result;
     }      
 
-    public set products(value:Array<Product>) {
+    public set products(value:Array<SearchResultItem>) {
         this._resultsHTMLElement.innerHTML = "";
         for (let i = 0; i < value.length; i++) {
             let el = document.createElement("ce-product-item") as any;

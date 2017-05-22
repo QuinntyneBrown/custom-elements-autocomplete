@@ -1,9 +1,16 @@
 import { ProductItemClick, constants } from "./custom-events";
 import { DomHandler } from "../utilities";
 
+const htmlTemplate = require("./search-result-item.component.html");
+const styles = require("./search-result-item.component.scss");
+
+const template = document.createElement("template");
+template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
+
 export class ProductItemComponent extends HTMLElement {
     constructor(private _domHandler: DomHandler = DomHandler.instance) {
         super();
+        this.attachShadow({ mode: 'open' });
         this.dispatchProductItemClickEvent = this.dispatchProductItemClickEvent.bind(this);        
     }
 
@@ -14,7 +21,7 @@ export class ProductItemComponent extends HTMLElement {
     private get productDetailsHTMLElement() { return this.querySelector("ce-product-detail"); }
 
     connectedCallback() {        
-        this.innerHTML = require("./product-item.component.html");
+        this.shadowRoot.appendChild(document.importNode(template.content, true));
         this._bind();
         this._setEventListeners();
     }
@@ -33,7 +40,7 @@ export class ProductItemComponent extends HTMLElement {
         this.addEventListener("click", this.dispatchProductItemClickEvent);
     }
     
-    public set showProduct(value:Product) {
+    public set showProduct(value:SearchResultItem) {
         if (this.product.id == value.id) {            
             this._domHandler.addClass(this, "active");
         } else {
@@ -45,7 +52,7 @@ export class ProductItemComponent extends HTMLElement {
         this.dispatchEvent(new ProductItemClick(this.product));
     }
 
-    public product: Product;
+    public product: SearchResultItem;
     
 }
 

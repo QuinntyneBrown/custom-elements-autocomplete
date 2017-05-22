@@ -1,4 +1,4 @@
-﻿declare interface Product {
+﻿declare interface SearchResultItem {
     id: number;
     name: string;
     image_thumb_url: string;
@@ -8,6 +8,6 @@
     tasting_note: string;
 }
 
-declare interface GetProductsResponseJSON {
-    result: Array<Product>;
+declare interface SearchResponseJSON {
+    result: Array<SearchResultItem>;
 }

@@ -1,5 +1,5 @@
 export * from "./auto-complete.component";
 export * from "./custom-events";
-export * from "./product-detail.component";
-export * from "./product-item.component";
 export * from "./search-box.component";
+export * from "./search-result-item-detail.component";
+export * from "./search-result-item.component";
