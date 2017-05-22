@@ -1,4 +1,4 @@
-import { constants, ProductItemClick, ShowProductDetail } from "./custom-events";
+import { constants, SearchResultItemClick, ShowSearchResultItemDetail } from "./custom-events";
 const htmlTemplate = require("./auto-complete.component.html");
 const styles = require("./auto-complete.component.scss");
 
@@ -29,15 +29,15 @@ export class AutoCompleteComponent extends HTMLElement {
     }
     
     private _setEventListeners() {
-        this._searchBoxHTMLElement.addEventListener(constants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
+        this._searchBoxHTMLElement.addEventListener(constants.SEARCH_RESULT_ITEM_CLICK, this.updateProductDetail);
     }
 
-    public updateProductDetail(e: ProductItemClick) {   
+    public updateProductDetail(e: SearchResultItemClick) {   
         (this._searchBoxHTMLElement as any).showProduct = e.detail.product;
     }
 
     disconnectedCallback() {
-        this._searchBoxHTMLElement.removeEventListener(constants.PRODUCT_ITEM_CLICK, this.updateProductDetail);
+        this._searchBoxHTMLElement.removeEventListener(constants.SEARCH_RESULT_ITEM_CLICK, this.updateProductDetail);
     }
 
     attributeChangedCallback (name, oldValue, newValue) {

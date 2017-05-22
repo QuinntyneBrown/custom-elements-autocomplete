@@ -1,4 +1,4 @@
-import { ProductItemClick, constants } from "./custom-events";
+import { SearchResultItemClick, constants } from "./custom-events";
 import { DomHandler } from "../utilities";
 
 const htmlTemplate = require("./search-result-item.component.html");
@@ -49,7 +49,7 @@ export class ProductItemComponent extends HTMLElement {
     }
 
     private dispatchProductItemClickEvent() {        
-        this.dispatchEvent(new ProductItemClick(this.product));
+        this.dispatchEvent(new SearchResultItemClick(this.product));
     }
 
     public product: SearchResultItem;
