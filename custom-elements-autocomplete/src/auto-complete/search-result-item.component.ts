@@ -49,9 +49,9 @@ export class SearchResultItemComponent extends HTMLElement {
     
     public set activeSearchResultItem(value: SearchResultItem) {        
         if (this.searchResultItem.id == value.id) {         
-            this.style.height = "350px";               
+            this.style.height = "290px";               
         } else {
-            this.style.height = "110px";
+            this.style.height = "50px";
         }
     }
 
