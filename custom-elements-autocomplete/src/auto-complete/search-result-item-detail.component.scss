@@ -2,7 +2,7 @@
     display:block;
 
     img {
-        height:110px;
+        width:82px;
         display:block;
     }
 
@@ -14,4 +14,21 @@
         color:#fff;
         background-color:orangered;
     }
+
+    .search-result-item-detail-details-container {
+        width:calc(100% - 82px);
+    }
+
+    img,
+    .search-result-item-detail-details-container {
+        position:relative;
+        float:left;
+        display:inline-block;
+    }
+}
+
+:host::after {
+    content: " ";
+    display:block;
+    clear:both;
 }
