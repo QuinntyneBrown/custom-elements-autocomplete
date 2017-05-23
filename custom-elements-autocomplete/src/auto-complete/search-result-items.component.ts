@@ -23,21 +23,20 @@ export class SearchResultItemsComponent extends HTMLElement {
         this._bind();        
     }
 
-    private async _bind() {
-        if (this.searchResultItems.length > 1) {
+    private _bind() {
+        if (this.searchResultItems.length > 0) {
             this.shadowRoot.innerHTML = "";
             for (let i = 0; i < this.searchResultItems.length; i++) {
-                let el = document.createElement("ce-search-result-item") as any;
-                el.fn = () => this.showSearchResultItemDetail(el);
-                el.setAttribute("search-result-item", JSON.stringify(this.searchResultItems[i]));
-                this.shadowRoot.appendChild(el);
+                let searchResultItemElement = document.createElement("ce-search-result-item") as any;
+                searchResultItemElement.fn = () => this.showSearchResultItemDetail(searchResultItemElement);
+                searchResultItemElement.setAttribute("search-result-item", JSON.stringify(this.searchResultItems[i]));
+                this.shadowRoot.appendChild(searchResultItemElement);
             }
         } else {
             this.shadowRoot.innerHTML = `<p>No Results...</p>`;
         }
     }
-
-
+    
     public showSearchResultItemDetail(el: { searchResultItem: SearchResultItem}) {
         let searchResultItemElements = this.shadowRoot.querySelectorAll("ce-search-result-item");
 

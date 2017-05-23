@@ -26,16 +26,22 @@ export class SearchBoxComponent extends HTMLElement {
         this.shadowRoot.appendChild(document.importNode(template.content, true));
         this._setEventListeners();
     }
-
-    //TODO: implement debounce
+    
     private _setEventListeners() { this._inputHTMLElement.addEventListener("keyup", this.fetchResults); }
 
     disconnectedCallback() { this._inputHTMLElement.removeEventListener("keyup", this.fetchResults); }
 
-    private async fetchResults() {
-        let response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
-        let searchResultItems = (await response.json() as SearchResponseJSON).result;        
-        this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));
+    private timeoutId: NodeJS.Timer;
+
+    private fetchResults() {
+        if (this.timeoutId)
+            clearTimeout(this.timeoutId);
+
+        this.timeoutId = setTimeout(async () => {
+            let response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
+            let searchResultItems = (await response.json() as SearchResponseJSON).result;
+            this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));
+        }, 300);        
     }      
 
     attributeChangedCallback(name, oldValue, newValue) {

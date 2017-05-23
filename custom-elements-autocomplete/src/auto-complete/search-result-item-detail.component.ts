@@ -37,13 +37,11 @@ export class SearchResultItemDetailComponent extends HTMLElement {
     public get defultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"; }
 
     private async _bind() {
-        if (this._searchResultItem) {
-            
+        if (this._searchResultItem) {            
             this.categoryHTMLElement.textContent = this._searchResultItem.primary_category;
             this.fullImageHTMLElement.src = this._searchResultItem.image_url == null ? this.defultImageUrl : this._searchResultItem.image_url;
             this.nameHTMLElement.innerHTML = this._searchResultItem.name;
-            this.priceHTMLElement.innerHTML = `$${(this._searchResultItem.price_in_cents / 100).toFixed(2)}`;
-            
+            this.priceHTMLElement.innerHTML = `$${(this._searchResultItem.price_in_cents / 100).toFixed(2)}`;            
             this.descriptionHTMLElement.textContent = this._searchResultItem.tasting_note;
         }
     }
