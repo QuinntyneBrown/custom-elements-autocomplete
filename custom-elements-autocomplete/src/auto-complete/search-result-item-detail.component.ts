@@ -40,7 +40,7 @@ export class SearchResultItemDetailComponent extends HTMLElement {
         if (this._searchResultItem) {            
             this.categoryHTMLElement.textContent = this._searchResultItem.primary_category;
             this.fullImageHTMLElement.src = this._searchResultItem.image_url == null ? this.defultImageUrl : this._searchResultItem.image_url;
-            this.nameHTMLElement.innerHTML = this._searchResultItem.name;
+            this.nameHTMLElement.innerHTML = `${this._searchResultItem.name}, ${this._searchResultItem.volume_in_milliliters} ml`;
             this.priceHTMLElement.innerHTML = `$${(this._searchResultItem.price_in_cents / 100).toFixed(2)}`;            
             this.descriptionHTMLElement.textContent = this._searchResultItem.tasting_note;
         }

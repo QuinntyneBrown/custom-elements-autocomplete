@@ -31,7 +31,7 @@ export class SearchBoxComponent extends HTMLElement {
 
     disconnectedCallback() { this._inputHTMLElement.removeEventListener("keyup", this.fetchResults); }
 
-    private timeoutId: NodeJS.Timer;
+    private timeoutId: any;
 
     private fetchResults() {
         if (this.timeoutId)

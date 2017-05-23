@@ -6,6 +6,7 @@
     price_in_cents: number;
     primary_category: string;
     tasting_note: string;
+    volume_in_milliliters: string;
 }
 
 declare interface SearchResponseJSON {
