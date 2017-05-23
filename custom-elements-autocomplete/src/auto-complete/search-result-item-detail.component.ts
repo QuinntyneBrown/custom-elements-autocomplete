@@ -21,7 +21,7 @@ export class SearchResultItemDetailComponent extends HTMLElement {
 
     private get categoryHTMLElement() { return this.shadowRoot.querySelector(".search-result-item-detail-category"); }
 
-    private get tastingNoteHTMLElement() { return this.shadowRoot.querySelector(".search-result-item-detail-tasting-note"); }
+    private get descriptionHTMLElement() { return this.shadowRoot.querySelector(".search-result-item-detail-description"); }
 
     static get observedAttributes () {
         return [
@@ -44,7 +44,7 @@ export class SearchResultItemDetailComponent extends HTMLElement {
             this.nameHTMLElement.innerHTML = this._searchResultItem.name;
             this.priceHTMLElement.innerHTML = `$${(this._searchResultItem.price_in_cents / 100).toFixed(2)}`;
             
-            this.tastingNoteHTMLElement.textContent = this._searchResultItem.tasting_note;
+            this.descriptionHTMLElement.textContent = this._searchResultItem.tasting_note;
         }
     }
     

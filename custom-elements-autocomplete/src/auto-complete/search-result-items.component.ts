@@ -1,5 +1,3 @@
-import { constants, SearchResultItemClick, ShowSearchResultItemDetail } from "./custom-events";
-
 const htmlTemplate = require("./search-result-items.component.html");
 const styles = require("./search-result-items.component.scss");
 

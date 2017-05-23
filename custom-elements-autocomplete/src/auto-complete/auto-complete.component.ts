@@ -1,4 +1,4 @@
-import { constants, SearchResultItemClick, ShowSearchResultItemDetail, SearchResultItemsFetched } from "./custom-events";
+import { constants, SearchResultItemsFetched } from "./custom-events";
 const htmlTemplate = require("./auto-complete.component.html");
 const styles = require("./auto-complete.component.scss");
 
@@ -9,7 +9,6 @@ export class AutoCompleteComponent extends HTMLElement {
     constructor() {
         super();  
         this.attachShadow({ mode: 'open' });
-        this.updateSearchResultItems = this.updateSearchResultItems.bind(this);   
         this.refreshSearchResultItems = this.refreshSearchResultItems.bind(this);   
     }
 
@@ -28,13 +27,7 @@ export class AutoCompleteComponent extends HTMLElement {
     }
     
     private _setEventListeners() {
-        this.addEventListener(constants.SEARCH_RESULT_ITEM_CLICK, this.updateSearchResultItems);
         this._searchBoxHTMLElement.addEventListener(constants.SEARCH_RESULT_ITEMS_FETCHED, this.refreshSearchResultItems);
-    }
-
-    public updateSearchResultItems(e: SearchResultItemClick) {   
-        alert("???");
-        //this._searchResultItemsElement.setAttribute("show-search-result-item-detail", JSON.stringify(e.detail.searchResultItem));
     }
 
     public refreshSearchResultItems(e: SearchResultItemsFetched) {
@@ -42,7 +35,6 @@ export class AutoCompleteComponent extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this._searchResultItemsElement.removeEventListener(constants.SEARCH_RESULT_ITEM_CLICK, this.updateSearchResultItems);
         this._searchBoxHTMLElement.removeEventListener(constants.SEARCH_RESULT_ITEMS_FETCHED, this.refreshSearchResultItems);
     }
 

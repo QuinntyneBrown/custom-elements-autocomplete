@@ -1,5 +1,3 @@
-import { SearchResultItemClick, constants } from "./custom-events";
-
 const htmlTemplate = require("./search-result-item.component.html");
 const styles = require("./search-result-item.component.scss");
 
@@ -10,7 +8,6 @@ export class SearchResultItemComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.dispatchSearchResultItemClickEvent = this.dispatchSearchResultItemClickEvent.bind(this);        
     }
 
     static get observedAttributes() {
@@ -32,7 +29,7 @@ export class SearchResultItemComponent extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this.removeEventListener("click", this.dispatchSearchResultItemClickEvent);
+        this.removeEventListener("click", this.fn);
     }
 
     private _bind() {
@@ -44,7 +41,7 @@ export class SearchResultItemComponent extends HTMLElement {
     public get defultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
 
     private _setEventListeners() {
-        this.addEventListener("click", this.dispatchSearchResultItemClickEvent);
+        this.addEventListener("click", this.fn);
     }
     
     public set activeSearchResultItem(value: SearchResultItem) {        
@@ -53,10 +50,6 @@ export class SearchResultItemComponent extends HTMLElement {
         } else {
             this.style.height = "50px";
         }
-    }
-
-    private dispatchSearchResultItemClickEvent() {                
-        this.fn();
     }
 
     public fn: { ():void };
