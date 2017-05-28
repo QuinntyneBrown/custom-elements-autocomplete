@@ -45,10 +45,10 @@ export class SearchResultItemComponent extends HTMLElement {
     }
     
     public set activeSearchResultItem(value: SearchResultItem) {        
-        if (this.searchResultItem.id == value.id) {         
-            this.style.height = "290px";               
+        if (this.searchResultItem.id == value.id && !this.classList.contains("active")) {         
+            this.classList.add("active");
         } else {
-            this.style.height = "50px";
+            this.classList.remove("active")
         }
     }
 

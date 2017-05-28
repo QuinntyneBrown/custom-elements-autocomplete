@@ -24,12 +24,15 @@
     h2 {
         font-size:.8em;
     }
+
+    .search-result-item-container:after {
+        clear:both;
+        content: " ";
+        display:block;
+    }
 }
 
-
-
-.search-result-item-container:after {
-    clear:both;
-    content: " ";
-    display:block;
+:host(.active) {
+    height:290px;
 }
+
