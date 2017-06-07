@@ -1,8 +1,8 @@
-const htmlTemplate = require("./header.component.html");
-const styles = require("./header.component.scss");
+const html = require("./header.component.html");
+const css = require("./header.component.scss");
 
 const template = document.createElement("template");
-template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
+template.innerHTML = `<style>${css}</style>${html}`;
 
 export class HeaderComponent extends HTMLElement {
     connectedCallback() {

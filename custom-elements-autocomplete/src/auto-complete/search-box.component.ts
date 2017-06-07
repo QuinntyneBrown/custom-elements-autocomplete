@@ -5,7 +5,7 @@ const html = require("./search-box.component.html");
 const css = require("./search-box.component.scss")
 
 const template = document.createElement("template");
-template.innerHTML = `${html}<style>${css}</style>`;
+template.innerHTML = `<style>${css}</style>${html}`;
 
 export class SearchBoxComponent extends HTMLElement {
     constructor() {
@@ -31,15 +31,15 @@ export class SearchBoxComponent extends HTMLElement {
 
     disconnectedCallback() { this._inputHTMLElement.removeEventListener("keyup", this.fetchResults); }
 
-    private timeoutId: any;
+    private _timeoutId: any;
 
     private fetchResults() {
-        if (this.timeoutId)
-            clearTimeout(this.timeoutId);
+        if (this._timeoutId)
+            clearTimeout(this._timeoutId);
 
-        this.timeoutId = setTimeout(async () => {
-            let response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
-            let searchResultItems = (await response.json() as SearchResponseJSON).result;
+        this._timeoutId = setTimeout(async () => {
+            const response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
+            const searchResultItems = (await response.json() as SearchResponseJSON).result;
             this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));
         }, 300);        
     }      

@@ -4,7 +4,7 @@ const html = require("./search-result-item.component.html");
 const css = require("./search-result-item.component.scss");
 
 const template = document.createElement("template");
-template.innerHTML = `${html}<style>${css}</style>`;
+template.innerHTML = `<style>${css}</style>${html}`;
 
 export class SearchResultItemComponent extends HTMLElement {
     constructor() {

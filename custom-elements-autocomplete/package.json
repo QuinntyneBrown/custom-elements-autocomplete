@@ -14,7 +14,7 @@
     "node-sass": "^4.5.2",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.5",
-    "typescript": "~2.2.0",
+    "typescript": "2.3.4",
     "webpack": "^2.5.1"
   }
 }

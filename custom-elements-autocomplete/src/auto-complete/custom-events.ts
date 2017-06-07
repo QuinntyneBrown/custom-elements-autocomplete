@@ -1,21 +1,16 @@
-﻿/// <reference path="auto-complete.d.ts" />
-
-export const constants = {
-    SEARCH_RESULT_ITEMS_FETCHED: "SEARCH_RESULT_ITEMS_FETCHED",
-    SEARCH_RESULT_ITEM_CLICKED: "SEARCH_RESULT_ITEM_CLICKED",
-}
+﻿export const constants = {
+    SEARCH_RESULT_ITEMS_FETCHED: "[ Search Result ] ITEMS FETCHED",
+    SEARCH_RESULT_ITEM_CLICKED: "[ Search Result ] ITEM CLICKED",
+};
 
 export class SearchResultItemsFetched extends CustomEvent {
     constructor(searchResultItems: Array<SearchResultItem>) {
         super(constants.SEARCH_RESULT_ITEMS_FETCHED, {
-            detail: {
-                searchResultItems
-            },
+            detail: { searchResultItems },
             bubbles: true,
             composed: true,
-            cancelable: false,
-            
-        } as any);
+            cancelable: false,            
+        } as CustomEventInit);
     }
 }
 
@@ -26,6 +21,6 @@ export class SearchResultItemClicked extends CustomEvent {
             bubbles: true,
             composed: true,
             cancelable: false,
-        } as any);
+        } as CustomEventInit);
     }
 }

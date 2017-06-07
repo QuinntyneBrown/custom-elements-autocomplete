@@ -1,9 +1,9 @@
 /// <reference path="auto-complete.d.ts" />
-const htmlTemplate = require("./search-result-item-detail.component.html");
-const styles = require("./search-result-item-detail.component.scss");
+const html = require("./search-result-item-detail.component.html");
+const css = require("./search-result-item-detail.component.scss");
 
 const template = document.createElement("template");
-template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
+template.innerHTML = `${html}<style>${css}</style>`;
 
 export class SearchResultItemDetailComponent extends HTMLElement {
     constructor() {
