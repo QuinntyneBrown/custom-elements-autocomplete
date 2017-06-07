@@ -31,7 +31,9 @@
     }
 }
 
-:host::after {
+
+
+:host(::after) {
     content: " ";
     display:block;
     clear:both;

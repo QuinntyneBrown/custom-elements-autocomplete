@@ -1,11 +1,11 @@
 :host {
     display:block;
     cursor:pointer;
-    margin: 20px 0;
     height:50px;
-    transition: height 500ms;
+    margin: 20px 0;
     overflow:hidden;
-
+    transition: height 500ms;
+    
     img, .search-result-item-details {
         display:inline-block;
         float:left;
@@ -35,4 +35,3 @@
 :host(.active) {
     height:290px;
 }
-

@@ -1,9 +1,9 @@
 import { constants, SearchResultItemsFetched } from "./custom-events";
-const htmlTemplate = require("./auto-complete.component.html");
-const styles = require("./auto-complete.component.scss");
+const html = require("./auto-complete.component.html");
+const css = require("./auto-complete.component.scss");
 
 const template = document.createElement("template");
-template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
+template.innerHTML = `${html}<style>${css}</style>`;
 
 export class AutoCompleteComponent extends HTMLElement {
     constructor() {

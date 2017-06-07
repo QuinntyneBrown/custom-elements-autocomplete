@@ -1,13 +1,16 @@
-const htmlTemplate = require("./search-result-item.component.html");
-const styles = require("./search-result-item.component.scss");
+import { SearchResultItemClicked } from "./custom-events";
+
+const html = require("./search-result-item.component.html");
+const css = require("./search-result-item.component.scss");
 
 const template = document.createElement("template");
-template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
+template.innerHTML = `${html}<style>${css}</style>`;
 
 export class SearchResultItemComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.dispatchSearchResultItemEvent = this.dispatchSearchResultItemEvent.bind(this); 
     }
 
     static get observedAttributes() {
@@ -29,7 +32,7 @@ export class SearchResultItemComponent extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this.removeEventListener("click", this.fn);
+        this.removeEventListener("click", this.dispatchSearchResultItemEvent);
     }
 
     private _bind() {
@@ -41,9 +44,13 @@ export class SearchResultItemComponent extends HTMLElement {
     public get defultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
 
     private _setEventListeners() {
-        this.addEventListener("click", this.fn);
+        this.addEventListener("click", this.dispatchSearchResultItemEvent);
     }
-    
+
+    public dispatchSearchResultItemEvent () {
+        this.dispatchEvent(new SearchResultItemClicked(this.searchResultItem));
+    }
+
     public set activeSearchResultItem(value: SearchResultItem) {        
         if (this.searchResultItem.id == value.id && !this.classList.contains("active")) {         
             this.classList.add("active");
@@ -51,9 +58,7 @@ export class SearchResultItemComponent extends HTMLElement {
             this.classList.remove("active")
         }
     }
-
-    public fn: { ():void };
-
+    
     public searchResultItem: SearchResultItem;
 
     attributeChangedCallback(name, oldValue, newValue) {

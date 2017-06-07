@@ -1,11 +1,11 @@
 /// <reference path="auto-complete.d.ts" />
 import { SearchResultItemsFetched } from "./custom-events";
 
-const htmlTemplate = require("./search-box.component.html");
-const styles = require("./search-box.component.scss")
+const html = require("./search-box.component.html");
+const css = require("./search-box.component.scss")
 
 const template = document.createElement("template");
-template.innerHTML = `${htmlTemplate}<style>${styles}</style>`;
+template.innerHTML = `${html}<style>${css}</style>`;
 
 export class SearchBoxComponent extends HTMLElement {
     constructor() {
