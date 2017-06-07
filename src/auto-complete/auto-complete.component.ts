@@ -1,4 +1,5 @@
 import { constants, SearchResultItemsFetched } from "./custom-events";
+
 const html = require("./auto-complete.component.html");
 const css = require("./auto-complete.component.scss");
 
