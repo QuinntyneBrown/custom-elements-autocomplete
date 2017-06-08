@@ -1,5 +1,6 @@
 /// <reference path="auto-complete.d.ts" />
 import { SearchResultItemsFetched } from "./custom-events";
+import { Observable, Subscription } from "rxjs";
 
 const html = require("./search-box.component.html");
 const css = require("./search-box.component.scss")
@@ -25,23 +26,32 @@ export class SearchBoxComponent extends HTMLElement {
     connectedCallback() {
         this.shadowRoot.appendChild(document.importNode(template.content, true));
         this._setEventListeners();
+
+        this._subscription = Observable
+            .fromEvent(this._inputHTMLElement, "keyup")
+            .switchMap(this.fetchResults)
+            .subscribe();
     }
-    
+
+    private _subscription: Subscription;
+
     private _setEventListeners() { this._inputHTMLElement.addEventListener("keyup", this.fetchResults); }
 
-    disconnectedCallback() { this._inputHTMLElement.removeEventListener("keyup", this.fetchResults); }
+    disconnectedCallback() {
+        this._inputHTMLElement.removeEventListener("keyup", this.fetchResults);
+        this._subscription.unsubscribe();
+    }
 
     private _timeoutId: any;
 
-    private fetchResults() {
-        if (this._timeoutId)
-            clearTimeout(this._timeoutId);
-
-        this._timeoutId = setTimeout(async () => {
+    private async fetchResults() {
+        return new Promise(async (resolve) => {
             const response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
             const searchResultItems = (await response.json() as SearchResponseJSON).result;
-            this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));
-        }, 300);        
+            this.dispatchEvent(new SearchResultItemsFetched(searchResultItems)); 
+            resolve();
+        })
+    
     }      
 
     attributeChangedCallback(name, oldValue, newValue) {

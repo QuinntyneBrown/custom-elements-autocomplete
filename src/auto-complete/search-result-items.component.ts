@@ -39,7 +39,7 @@ export class SearchResultItemsComponent extends HTMLElement {
         if (this.searchResultItems.length > 0) {
             this.shadowRoot.innerHTML = "";
             for (let i = 0; i < this.searchResultItems.length; i++) {
-                let searchResultItemElement = document.createElement("ce-search-result-item") as any;
+                const searchResultItemElement = document.createElement("ce-search-result-item") as any;
                 searchResultItemElement.setAttribute("search-result-item", JSON.stringify(this.searchResultItems[i]));
                 this.shadowRoot.appendChild(searchResultItemElement);
             }
