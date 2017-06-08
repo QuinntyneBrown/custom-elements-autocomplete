@@ -26,19 +26,18 @@ export class SearchBoxComponent extends HTMLElement {
     connectedCallback() {
         this.shadowRoot.appendChild(document.importNode(template.content, true));
         this._setEventListeners();
+    }
 
+    private _subscription: Subscription;
+
+    private _setEventListeners() {
         this._subscription = Observable
             .fromEvent(this._inputHTMLElement, "keyup")
             .switchMap(this.fetchResults)
             .subscribe();
     }
 
-    private _subscription: Subscription;
-
-    private _setEventListeners() { this._inputHTMLElement.addEventListener("keyup", this.fetchResults); }
-
     disconnectedCallback() {
-        this._inputHTMLElement.removeEventListener("keyup", this.fetchResults);
         this._subscription.unsubscribe();
     }
 
