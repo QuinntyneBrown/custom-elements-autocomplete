@@ -3,7 +3,7 @@ import { SearchResultItemsFetched } from "./custom-events";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/observable/fromEvent'
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/switchMap'
 
 const html = require("./search-box.component.html");
 const css = require("./search-box.component.scss")
@@ -36,7 +36,7 @@ export class SearchBoxComponent extends HTMLElement {
     private _setEventListeners() {
         this._subscription = Observable
             .fromEvent(this._inputHTMLElement, "keyup")
-            .map(this.fetchResults)
+            .switchMap(this.fetchResults)
             .subscribe();
     }
 
@@ -46,14 +46,14 @@ export class SearchBoxComponent extends HTMLElement {
 
     private _timeoutId: any;
 
-    private async fetchResults() {
-        return new Promise(async (resolve) => {
+    private fetchResults(): Observable<any> {        
+        return Observable.create(async (observer) => {            
             const response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
             const searchResultItems = (await response.json() as SearchResponseJSON).result;
-            this.dispatchEvent(new SearchResultItemsFetched(searchResultItems)); 
-            resolve();
-        })
-    
+            this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));
+            observer.onNext();
+            observer.onCompleted();
+        });
     }      
 
     attributeChangedCallback(name, oldValue, newValue) {
