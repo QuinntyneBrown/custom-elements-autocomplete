@@ -1,6 +1,9 @@
 /// <reference path="auto-complete.d.ts" />
 import { SearchResultItemsFetched } from "./custom-events";
-import { Observable, Subscription } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
+import 'rxjs/add/observable/fromEvent'
+import 'rxjs/add/operator/map'
 
 const html = require("./search-box.component.html");
 const css = require("./search-box.component.scss")
@@ -33,7 +36,7 @@ export class SearchBoxComponent extends HTMLElement {
     private _setEventListeners() {
         this._subscription = Observable
             .fromEvent(this._inputHTMLElement, "keyup")
-            .switchMap(this.fetchResults)
+            .map(this.fetchResults)
             .subscribe();
     }
 
