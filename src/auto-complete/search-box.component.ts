@@ -28,6 +28,10 @@ export class SearchBoxComponent extends HTMLElement {
 
     connectedCallback() {
         this.shadowRoot.appendChild(document.importNode(template.content, true));
+
+        if (!this.hasAttribute('role'))
+            this.setAttribute('role', 'searchbox');
+
         this._setEventListeners();
     }
 
@@ -47,12 +51,10 @@ export class SearchBoxComponent extends HTMLElement {
     private _timeoutId: any;
 
     private fetchResults(): Observable<any> {        
-        return Observable.create(async (observer) => {            
+        return Observable.create(async () => {            
             const response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`);
             const searchResultItems = (await response.json() as SearchResponseJSON).result;
-            this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));
-            observer.onNext();
-            observer.onCompleted();
+            this.dispatchEvent(new SearchResultItemsFetched(searchResultItems));                        
         });
     }      
 

@@ -23,6 +23,10 @@ export class AutoCompleteComponent extends HTMLElement {
     
     connectedCallback() {
         this.shadowRoot.appendChild(document.importNode(template.content, true));
+        
+        if (!this.hasAttribute('role'))
+            this.setAttribute('role', 'autocomplete');
+
         this._setEventListeners();
         this._searchBoxHTMLElement.setAttribute("api-key", this.apiKey);
     }

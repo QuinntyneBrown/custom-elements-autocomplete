@@ -1,6 +1,6 @@
 ﻿export const constants = {
-    SEARCH_RESULT_ITEMS_FETCHED: "[ Search Result ] ITEMS FETCHED",
-    SEARCH_RESULT_ITEM_CLICKED: "[ Search Result ] ITEM CLICKED",
+    SEARCH_RESULT_ITEMS_FETCHED: "[Search Result] ITEMS FETCHED",
+    SEARCH_RESULT_ITEM_CLICKED: "[Search Result] ITEM CLICKED",
 };
 
 export class SearchResultItemsFetched extends CustomEvent {

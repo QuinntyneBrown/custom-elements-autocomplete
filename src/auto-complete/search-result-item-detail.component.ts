@@ -31,6 +31,10 @@ export class SearchResultItemDetailComponent extends HTMLElement {
 
     connectedCallback() {
         this.shadowRoot.appendChild(document.importNode(template.content, true));
+
+        if (!this.hasAttribute('role'))
+            this.setAttribute('role', 'searchresultitemdetail');
+
         this._bind();
     }
 

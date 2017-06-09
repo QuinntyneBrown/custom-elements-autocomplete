@@ -22,7 +22,11 @@ export class SearchResultItemsComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this.shadowRoot.appendChild(document.importNode(template.content, true));   
+        this.shadowRoot.appendChild(document.importNode(template.content, true)); 
+
+        if (!this.hasAttribute('role'))
+            this.setAttribute('role', 'searchresultitems');
+   
         this._bind();        
         this._setEventListeners();
     }

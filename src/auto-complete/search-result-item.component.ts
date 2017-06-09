@@ -27,6 +27,13 @@ export class SearchResultItemComponent extends HTMLElement {
 
     connectedCallback() {        
         this.shadowRoot.appendChild(document.importNode(template.content, true));
+
+        if (!this.hasAttribute('role'))
+            this.setAttribute('role', 'searchresultitem');
+
+        if (!this.hasAttribute('tabindex'))
+            this.setAttribute('tabindex', '0');
+
         this._bind();
         this._setEventListeners();
     }
@@ -37,11 +44,11 @@ export class SearchResultItemComponent extends HTMLElement {
 
     private _bind() {
         this.headingHTMLElement.innerHTML = this.searchResultItem.name;
-        this.thumbnailHTMLElement.src = this.searchResultItem.image_thumb_url == null ? this.defultImageUrl : this.searchResultItem.image_thumb_url;
+        this.thumbnailHTMLElement.src = this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url;
         this.searchResultItemDetailsHTMLElement.setAttribute("search-result-item",JSON.stringify(this.searchResultItem));
     }
 
-    public get defultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
+    public get defaultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
 
     private _setEventListeners() {
         this.addEventListener("click", this.dispatchSearchResultItemEvent);
@@ -73,4 +80,4 @@ export class SearchResultItemComponent extends HTMLElement {
     }   
 }
 
-customElements.define(`ce-search-result-item`,SearchResultItemComponent);
+customElements.define(`ce-search-result-item`, SearchResultItemComponent);
