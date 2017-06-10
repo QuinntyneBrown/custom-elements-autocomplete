@@ -3,6 +3,7 @@ import { SearchResultItemsFetched } from "./custom-events";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/switchMap';
 
 const html = require("./search-box.component.html");
@@ -15,7 +16,7 @@ export class SearchBoxComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.fetchResults = this.fetchResults.bind(this);
+        this._fetchResults = this._fetchResults.bind(this);
     }
 
     static get observedAttributes() {
@@ -40,7 +41,7 @@ export class SearchBoxComponent extends HTMLElement {
     private _setEventListeners() {
         this._subscription = Observable
             .fromEvent(this._inputHTMLElement, "keyup")
-            .switchMap(this.fetchResults)
+            .switchMap(this._fetchResults)
             .subscribe((x) => this.dispatchEvent(new SearchResultItemsFetched(x)));
     }
 
@@ -50,17 +51,13 @@ export class SearchBoxComponent extends HTMLElement {
 
     private _timeoutId: any;
 
-    private fetchResults(): Observable<Array<SearchResultItem>> {          
-        return new Observable((observer) => {
-            fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`)
-                .then((response) => {                    
-                    response.json()
-                        .then((json) => {                            
-                            observer.next(json.result);                            
-                        });
-                });            
-        });      
-    }      
+    private _fetchResults(): Observable<Array<SearchResultItem>> {
+        return Observable.fromPromise((async () => {
+            const response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`)
+            const json = await response.json();
+            return json.result;
+        })());
+    }
 
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
