@@ -35,7 +35,7 @@ export class AutoCompleteComponent extends HTMLElement {
         this._searchBoxHTMLElement.addEventListener(constants.SEARCH_RESULT_ITEMS_FETCHED, this.refreshSearchResultItems);
     }
 
-    public refreshSearchResultItems(e: SearchResultItemsFetched) {
+    public refreshSearchResultItems(e: SearchResultItemsFetched) {        
         this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(e.detail.searchResultItems));
     }
 
