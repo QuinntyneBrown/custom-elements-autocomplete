@@ -17,7 +17,6 @@ export class SearchBoxComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this._fetchResults = this._fetchResults.bind(this);
     }
 
     static get observedAttributes() {
@@ -43,23 +42,21 @@ export class SearchBoxComponent extends HTMLElement {
         this._subscription = Observable
             .fromEvent(this._inputHTMLElement, "keyup")
             .debounceTime(200)
-            .switchMap(this._fetchResults)
+            .switchMap(async () => {
+                const response = await fetch(this._url);
+                const json = await response.json();
+                return json.result;
+            })
             .subscribe((x) => this.dispatchEvent(new SearchResultItemsFetched(x)));
     }
 
     disconnectedCallback() {
         this._subscription.unsubscribe();
     }
-        
+
     private _timeoutId: any;
 
-    private _fetchResults(): Observable<Array<SearchResultItem>> {
-        return Observable.fromPromise((async () => {
-            const response = await fetch(`http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`)
-            const json = await response.json();
-            return json.result;
-        })());
-    }
+    private get _url(): string { return `http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`; }
 
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
