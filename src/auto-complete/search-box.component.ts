@@ -1,10 +1,11 @@
 /// <reference path="auto-complete.d.ts" />
-import { SearchResultItemsFetched } from "./custom-events";
-import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
+import {SearchResultItemsFetched} from "./custom-events";
+import {Observable} from "rxjs/Observable";
+import {Subscription} from "rxjs/Subscription";
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/debounceTime';
 
 const html = require("./search-box.component.html");
 const css = require("./search-box.component.scss")
@@ -41,6 +42,7 @@ export class SearchBoxComponent extends HTMLElement {
     private _setEventListeners() {
         this._subscription = Observable
             .fromEvent(this._inputHTMLElement, "keyup")
+            .debounceTime(200)
             .switchMap(this._fetchResults)
             .subscribe((x) => this.dispatchEvent(new SearchResultItemsFetched(x)));
     }
@@ -48,7 +50,7 @@ export class SearchBoxComponent extends HTMLElement {
     disconnectedCallback() {
         this._subscription.unsubscribe();
     }
-
+        
     private _timeoutId: any;
 
     private _fetchResults(): Observable<Array<SearchResultItem>> {
