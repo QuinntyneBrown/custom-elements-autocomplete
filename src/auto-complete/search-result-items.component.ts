@@ -1,7 +1,7 @@
 import { constants } from "./custom-events";
 
 const html = require("./search-result-items.component.html");
-const css = require("./search-result-items.component.scss");
+const css = require("./search-result-items.component.css");
 
 const template = document.createElement("template");
 template.innerHTML = `<style>${css}</style>${html}`;

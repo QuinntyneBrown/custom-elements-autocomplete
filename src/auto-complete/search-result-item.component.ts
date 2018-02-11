@@ -1,7 +1,7 @@
-import { SearchResultItemClicked } from "./custom-events";
+import { constants } from "./custom-events";
 
 const html = require("./search-result-item.component.html");
-const css = require("./search-result-item.component.scss");
+const css = require("./search-result-item.component.css");
 
 const template = document.createElement("template");
 template.innerHTML = `<style>${css}</style>${html}`;
@@ -55,7 +55,12 @@ export class SearchResultItemComponent extends HTMLElement {
     }
 
     public dispatchSearchResultItemEvent () {
-        this.dispatchEvent(new SearchResultItemClicked(this.searchResultItem));
+        this.dispatchEvent(new CustomEvent(constants.SEARCH_RESULT_ITEM_CLICKED, {
+            bubbles: true,
+            composed: true,
+            cancelable: false,
+            detail: { searchResultItem: this.searchResultItem }
+        } as CustomEventInit));
     }
 
     public set activeSearchResultItem(value: SearchResultItem) {        

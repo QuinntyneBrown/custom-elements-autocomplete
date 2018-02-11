@@ -1,6 +1,6 @@
 /// <reference path="auto-complete.d.ts" />
 const html = require("./search-result-item-detail.component.html");
-const css = require("./search-result-item-detail.component.scss");
+const css = require("./search-result-item-detail.component.css");
 
 const template = document.createElement("template");
 template.innerHTML = `<style>${css}</style>${html}`;

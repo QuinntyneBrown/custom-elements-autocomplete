@@ -1,14 +1,14 @@
 /// <reference path="auto-complete.d.ts" />
-import {SearchResultItemsFetched} from "./custom-events";
+import {constants} from "./custom-events";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/debounceTime';
-
+import 'rxjs/add/operator/do';
 const html = require("./search-box.component.html");
-const css = require("./search-box.component.scss")
+const css = require("./search-box.component.css")
 
 const template = document.createElement("template");
 template.innerHTML = `<style>${css}</style>${html}`;
@@ -47,7 +47,13 @@ export class SearchBoxComponent extends HTMLElement {
                 const json = await response.json();
                 return json.result;
             })
-            .subscribe((x) => this.dispatchEvent(new SearchResultItemsFetched(x)));
+            .do((x) => this.dispatchEvent(new CustomEvent(constants.SEARCH_RESULT_ITEMS_FETCHED, {
+                bubbles: true,
+                composed: true,
+                cancelable: false,
+                detail: { searchResultItems: x }
+            } as CustomEventInit)))
+            .subscribe();
     }
 
     disconnectedCallback() {

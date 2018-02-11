@@ -1,7 +1,7 @@
-import { constants, SearchResultItemsFetched } from "./custom-events";
+import { constants } from "./custom-events";
 
 const html = require("./auto-complete.component.html");
-const css = require("./auto-complete.component.scss");
+const css = require("./auto-complete.component.css");
 
 const template = document.createElement("template");
 template.innerHTML = `${html}<style>${css}</style>`;
@@ -35,7 +35,7 @@ export class AutoCompleteComponent extends HTMLElement {
         this._searchBoxHTMLElement.addEventListener(constants.SEARCH_RESULT_ITEMS_FETCHED, this.refreshSearchResultItems);
     }
 
-    public refreshSearchResultItems(e: SearchResultItemsFetched) {        
+    public refreshSearchResultItems(e: any) {        
         this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(e.detail.searchResultItems));
     }
 

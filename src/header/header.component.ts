@@ -1,5 +1,5 @@
 const html = require("./header.component.html");
-const css = require("./header.component.scss");
+const css = require("./header.component.css");
 
 const template = document.createElement("template");
 template.innerHTML = `<style>${css}</style>${html}`;
