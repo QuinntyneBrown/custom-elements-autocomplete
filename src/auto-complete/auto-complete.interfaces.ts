@@ -1,4 +1,4 @@
-﻿declare interface SearchResultItem {
+﻿export interface SearchResultItem {
     id: number;
     name: string;
     image_thumb_url: string;
@@ -9,6 +9,6 @@
     volume_in_milliliters: string;
 }
 
-declare interface SearchResponseJSON {
+export interface SearchResponseJSON {
     result: Array<SearchResultItem>;
 }

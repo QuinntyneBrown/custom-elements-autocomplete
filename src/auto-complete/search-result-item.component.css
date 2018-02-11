@@ -5,6 +5,7 @@
     margin: 20px 0;
     overflow:hidden;
     transition: height 500ms;
+    outline:none;
 }
 
 img, .search-result-item-details {

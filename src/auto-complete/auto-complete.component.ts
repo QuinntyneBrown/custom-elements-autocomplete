@@ -1,15 +1,13 @@
 import { constants } from "./custom-events";
+import { render, TemplateResult, html } from "lit-html";
+import { repeat } from "lit-html/lib/repeat";
+import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
 
-const html = require("./auto-complete.component.html");
-const css = require("./auto-complete.component.css");
-
-const template = document.createElement("template");
-template.innerHTML = `${html}<style>${css}</style>`;
+const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
 
 export class AutoCompleteComponent extends HTMLElement {
     constructor() {
-        super();  
-        this.attachShadow({ mode: 'open' });
+        super();          
         this.refreshSearchResultItems = this.refreshSearchResultItems.bind(this);   
     }
 
@@ -20,12 +18,21 @@ export class AutoCompleteComponent extends HTMLElement {
     private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items"); }
 
     static get observedAttributes() { return ["api-key"]; }
-    
-    connectedCallback() {
-        this.shadowRoot.appendChild(document.importNode(template.content, true));
-        
+
+    public get template(): TemplateResult {
+        return html`
+            ${styles}
+            <ce-search-box></ce-search-box>
+            <ce-search-result-items></ce-search-result-items>
+        `;
+    }
+    connectedCallback() {     
+        if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
+
         if (!this.hasAttribute('role'))
             this.setAttribute('role', 'autocomplete');
+
+        render(this.template, this.shadowRoot);
 
         this._setEventListeners();
         this._searchBoxHTMLElement.setAttribute("api-key", this.apiKey);

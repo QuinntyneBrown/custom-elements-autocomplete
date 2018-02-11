@@ -1,14 +1,13 @@
-/// <reference path="auto-complete.d.ts" />
-const html = require("./search-result-item-detail.component.html");
-const css = require("./search-result-item-detail.component.css");
+import { SearchResultItem, SearchResponseJSON } from "./auto-complete.interfaces";
+import { render, TemplateResult, html } from "lit-html";
+import { repeat } from "lit-html/lib/repeat";
+import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
 
-const template = document.createElement("template");
-template.innerHTML = `<style>${css}</style>${html}`;
+const styles = unsafeHTML(`<style>${require("./search-result-item-detail.component.css")}</style>`);
 
 export class SearchResultItemDetailComponent extends HTMLElement {
     constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
+        super();        
     }
 
     private _searchResultItem: SearchResultItem;
@@ -29,11 +28,26 @@ export class SearchResultItemDetailComponent extends HTMLElement {
         ];
     }
 
+    public get template():TemplateResult {
+        return html`
+            ${styles}
+            <img />
+            <div class="search-result-item-detail-details-container">
+                <h3 class="search-result-item-detail-category"></h3>
+                <h2 class="search-result-item-detail-name"></h2>
+                <h3 class="search-result-item-detail-price"></h3>
+                <p class="search-result-item-detail-description"></p>
+            </div>
+        `;
+    }
+
     connectedCallback() {
-        this.shadowRoot.appendChild(document.importNode(template.content, true));
+        if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
 
         if (!this.hasAttribute('role'))
             this.setAttribute('role', 'searchresultitemdetail');
+
+        render(this.template, this.shadowRoot);
 
         this._bind();
     }

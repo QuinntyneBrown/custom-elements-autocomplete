@@ -1,4 +1,3 @@
-/// <reference path="auto-complete.d.ts" />
 import {constants} from "./custom-events";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
@@ -7,16 +6,15 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
-const html = require("./search-box.component.html");
-const css = require("./search-box.component.css")
+import { render, TemplateResult, html } from "lit-html";
+import { repeat } from "lit-html/lib/repeat";
+import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
 
-const template = document.createElement("template");
-template.innerHTML = `<style>${css}</style>${html}`;
+const styles = unsafeHTML(`<style>${require("./search-box.component.css")}</style>`);
 
 export class SearchBoxComponent extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
     }
 
     static get observedAttributes() {
@@ -25,13 +23,21 @@ export class SearchBoxComponent extends HTMLElement {
         ];
     }
 
+    public get template():TemplateResult {
+        return html`
+            ${styles}
+            <input type="text" placeholder="Search For..." />
+        `;
+    }
     private get _inputHTMLElement() { return this.shadowRoot.querySelector("input"); }
 
     connectedCallback() {
-        this.shadowRoot.appendChild(document.importNode(template.content, true));
+        if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
 
         if (!this.hasAttribute('role'))
             this.setAttribute('role', 'searchbox');
+
+        render(this.template, this.shadowRoot);
 
         this._setEventListeners();
     }

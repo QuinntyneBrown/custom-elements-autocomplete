@@ -1,5 +1,6 @@
 :host {
     display:block;
+    outline:none;
 }
 
 input {
@@ -7,4 +8,5 @@ input {
     margin-bottom: 30px;
     padding: 0 10px;
     width: calc(100% - 20px);
+    outline:none;
 }

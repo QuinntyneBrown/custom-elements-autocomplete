@@ -1,15 +1,14 @@
 import { constants } from "./custom-events";
+import { SearchResultItem } from "./auto-complete.interfaces";
+import { render, TemplateResult, html } from "lit-html";
+import { repeat } from "lit-html/lib/repeat";
+import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
 
-const html = require("./search-result-item.component.html");
-const css = require("./search-result-item.component.css");
-
-const template = document.createElement("template");
-template.innerHTML = `<style>${css}</style>${html}`;
+const styles = unsafeHTML(`<style>${require("./search-result-item.component.css")}</style>`);
 
 export class SearchResultItemComponent extends HTMLElement {
     constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
+        super();        
         this.dispatchSearchResultItemEvent = this.dispatchSearchResultItemEvent.bind(this); 
     }
 
@@ -25,14 +24,30 @@ export class SearchResultItemComponent extends HTMLElement {
 
     private get searchResultItemDetailsHTMLElement() { return this.shadowRoot.querySelector("ce-search-result-item-detail"); }
 
-    connectedCallback() {        
-        this.shadowRoot.appendChild(document.importNode(template.content, true));
+    public get template(): TemplateResult {
+        return html`
+            ${styles}
+            <div class="search-result-item-container">
+                <img />
+                <div class="search-result-item-details">
+                    <h2></h2>
+                </div>
+            </div>
+
+            <ce-search-result-item-detail></ce-search-result-item-detail>
+        `;
+    }
+
+    connectedCallback() {                
+        if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
 
         if (!this.hasAttribute('role'))
             this.setAttribute('role', 'searchresultitem');
 
         if (!this.hasAttribute('tabindex'))
             this.setAttribute('tabindex', '0');
+
+        render(this.template, this.shadowRoot);
 
         this._bind();
         this._setEventListeners();
@@ -43,9 +58,11 @@ export class SearchResultItemComponent extends HTMLElement {
     }
 
     private _bind() {
-        this.headingHTMLElement.innerHTML = this.searchResultItem.name;
-        this.thumbnailHTMLElement.src = this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url;
-        this.searchResultItemDetailsHTMLElement.setAttribute("search-result-item",JSON.stringify(this.searchResultItem));
+        if (this.searchResultItem) {
+            this.headingHTMLElement.innerHTML = this.searchResultItem.name;
+            this.thumbnailHTMLElement.src = this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url;
+            this.searchResultItemDetailsHTMLElement.setAttribute("search-result-item", JSON.stringify(this.searchResultItem));
+        }
     }
 
     public get defaultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
@@ -75,7 +92,7 @@ export class SearchResultItemComponent extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
-            case "search-result-item":
+            case "search-result-item":                
                 this.searchResultItem = JSON.parse(newValue);
 
                 if (this.parentNode)

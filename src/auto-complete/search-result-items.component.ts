@@ -1,19 +1,19 @@
 import { constants } from "./custom-events";
+import { render, TemplateResult, html } from "lit-html";
+import { repeat } from "lit-html/lib/repeat";
+import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
+import { SearchResultItem } from "./auto-complete.interfaces";
 
-const html = require("./search-result-items.component.html");
-const css = require("./search-result-items.component.css");
+const styles = unsafeHTML(`<style>${require("./search-result-items.component.css")}</style>`);
 
-const template = document.createElement("template");
-template.innerHTML = `<style>${css}</style>${html}`;
 
 export class SearchResultItemsComponent extends HTMLElement {
     constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
+        super();        
         this.showSearchResultItemDetail = this.showSearchResultItemDetail.bind(this);
     }
 
-    public searchResultItems: Array<any> = [];
+    public searchResultItems: Array<SearchResultItem> = [];
 
     static get observedAttributes () {
         return [
@@ -21,13 +21,22 @@ export class SearchResultItemsComponent extends HTMLElement {
         ];
     }
 
+    public get template() {
+        return html`
+            ${styles}
+            ${repeat(this.searchResultItems, i => i.id, i => html`
+            <ce-search-result-item search-result-item="${JSON.stringify(i)}"></ce-search-result-item>`)}
+        `;
+    }
+
     connectedCallback() {
-        this.shadowRoot.appendChild(document.importNode(template.content, true)); 
+        if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
 
         if (!this.hasAttribute('role'))
             this.setAttribute('role', 'searchresultitems');
-   
-        this._bind();        
+
+        render(this.template, this.shadowRoot);
+        
         this._setEventListeners();
     }
 
@@ -37,19 +46,6 @@ export class SearchResultItemsComponent extends HTMLElement {
 
     public disconnectedCallback() {
         this.removeEventListener(constants.SEARCH_RESULT_ITEM_CLICKED, this.showSearchResultItemDetail);
-    }
-
-    private _bind() {
-        if (this.searchResultItems.length > 0) {
-            this.shadowRoot.innerHTML = "";
-            for (let i = 0; i < this.searchResultItems.length; i++) {
-                const searchResultItemElement = document.createElement("ce-search-result-item") as any;
-                searchResultItemElement.setAttribute("search-result-item", JSON.stringify(this.searchResultItems[i]));
-                this.shadowRoot.appendChild(searchResultItemElement);
-            }
-        } else {
-            this.shadowRoot.innerHTML = `<p>No Results...</p>`;
-        }
     }
     
     public showSearchResultItemDetail(event: any) {
@@ -66,7 +62,7 @@ export class SearchResultItemsComponent extends HTMLElement {
                 this.searchResultItems = JSON.parse(newValue);
 
                 if (this.parentNode)
-                    this._bind();
+                    render(this.template, this.shadowRoot);
                 break;
         }
     }
