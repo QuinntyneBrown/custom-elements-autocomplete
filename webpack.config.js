@@ -1,6 +1,6 @@
 ﻿const webpack = require('webpack');
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+const Uglify = require("uglifyjs-webpack-plugin");
 
 module.exports = {
     devtool: 'source-map',
@@ -23,6 +23,13 @@ module.exports = {
         ]
     },
     plugins: [
-        //new UglifyJsPlugin()
+        new Uglify({
+            uglifyOptions: {
+                output: {
+                    comments: false,
+                    beautify: false
+                }
+            }
+        })
     ]
 };
