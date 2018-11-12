@@ -78,22 +78,22 @@
     <Content Include=".gitignore" />
     <Content Include="dist\app.js" />
     <Content Include="packages.config" />
-    <Content Include="src\auto-complete\auto-complete.component.css">
+    <Content Include="src\auto-complete.component.css">
       <DependentUpon>auto-complete.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\auto-complete\search-box.component.css">
+    <Content Include="src\search-box.component.css">
       <DependentUpon>search-box.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\auto-complete\search-result-item-detail.component.css">
+    <Content Include="src\search-result-item-detail.component.css">
       <DependentUpon>search-result-item-detail.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\auto-complete\search-result-item.component.css">
+    <Content Include="src\search-result-item.component.css">
       <DependentUpon>search-result-item.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\auto-complete\search-result-items.component.css">
+    <Content Include="src\search-result-items.component.css">
       <DependentUpon>search-result-items.component.ts</DependentUpon>
     </Content>
-    <Content Include="src\header\header.component.css">
+    <Content Include="src\header.component.css">
       <DependentUpon>header.component.ts</DependentUpon>
     </Content>
     <Content Include="webpack.config.js" />
@@ -115,17 +115,16 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <TypeScriptCompile Include="src\auto-complete\auto-complete.interfaces.ts" />
-    <TypeScriptCompile Include="src\auto-complete\search-box.component.ts" />
-    <TypeScriptCompile Include="src\auto-complete\custom-events.ts" />
-    <TypeScriptCompile Include="src\auto-complete\search-result-item-detail.component.ts" />
-    <TypeScriptCompile Include="src\auto-complete\search-result-item.component.ts" />
-    <TypeScriptCompile Include="src\auto-complete\index.ts" />
-    <TypeScriptCompile Include="src\auto-complete\auto-complete.component.ts" />
-    <TypeScriptCompile Include="src\header\header.component.ts" />
-    <TypeScriptCompile Include="src\main.ts" />
-    <TypeScriptCompile Include="src\header\index.ts" />
-    <TypeScriptCompile Include="src\auto-complete\search-result-items.component.ts" />
+    <TypeScriptCompile Include="src\auto-complete.interfaces.ts" />
+    <TypeScriptCompile Include="src\lcbo.service.ts" />
+    <TypeScriptCompile Include="src\search-box.component.ts" />
+    <TypeScriptCompile Include="src\constants.ts" />
+    <TypeScriptCompile Include="src\search-result-item-detail.component.ts" />
+    <TypeScriptCompile Include="src\search-result-item.component.ts" />
+    <TypeScriptCompile Include="src\auto-complete.component.ts" />
+    <TypeScriptCompile Include="src\header.component.ts" />
+    <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\search-result-items.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

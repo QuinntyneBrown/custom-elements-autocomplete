@@ -1,7 +1,7 @@
-import { SearchResultItem, SearchResponseJSON } from "./auto-complete.interfaces";
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
+import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { SearchResultItem, SearchResponseJSON } from "./product.service";
 
 const styles = unsafeHTML(`<style>${require("./search-result-item-detail.component.css")}</style>`);
 

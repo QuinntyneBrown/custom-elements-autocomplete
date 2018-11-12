@@ -1,7 +1,7 @@
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
-import { searchResultItemsFetched } from "./custom-events";
+import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { searchResultItemsFetched } from "./constants";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
 
@@ -10,15 +10,11 @@ export class AutoCompleteComponent extends HTMLElement {
         super();          
         this.refreshSearchResultItems = this.refreshSearchResultItems.bind(this);   
     }
-
-    public apiKey: string;
-
+    
     private get _searchBoxHTMLElement() { return this.shadowRoot.querySelector("ce-search-box"); }
 
     private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items"); }
-
-    static get observedAttributes() { return ["api-key"]; }
-
+    
     public get template(): TemplateResult {
         return html`
             ${styles}
@@ -35,7 +31,6 @@ export class AutoCompleteComponent extends HTMLElement {
         render(this.template, this.shadowRoot);
 
         this._setEventListeners();
-        this._searchBoxHTMLElement.setAttribute("api-key", this.apiKey);
     }
     
     private _setEventListeners() {
@@ -48,15 +43,7 @@ export class AutoCompleteComponent extends HTMLElement {
 
     disconnectedCallback() {
         this._searchBoxHTMLElement.removeEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
-    }
-
-    attributeChangedCallback (name, oldValue, newValue) {
-        switch (name) {
-            case "api-key":
-                this.apiKey = newValue;
-                break;
-        }
-    }    
+    }   
 }
 
 customElements.define(`ce-auto-complete`, AutoCompleteComponent);

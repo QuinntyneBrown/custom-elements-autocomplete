@@ -7,21 +7,15 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
-import { searchResultItemsFetched } from "./custom-events";
+import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { searchResultItemsFetched } from "./constants";
+import { ProductService } from "./product.service";
 
 const styles = unsafeHTML(`<style>${require("./search-box.component.css")}</style>`);
 
 export class SearchBoxComponent extends HTMLElement {
-    constructor() {
-        super();
-    }
-
-    static get observedAttributes() {
-        return [
-            "api-key"
-        ];
-    }
+    
+    protected readonly _productService: ProductService = new ProductService();
 
     public get template():TemplateResult {
         return html`
@@ -48,11 +42,7 @@ export class SearchBoxComponent extends HTMLElement {
         this._subscription = Observable
             .fromEvent(this._inputHTMLElement, "keyup")
             .debounceTime(200)
-            .switchMap(async () => {
-                const response = await fetch(this._url);
-                const json = await response.json();
-                return json.result;
-            })
+            .switchMap(async () => this._productService.search(this._inputHTMLElement.value))
             .do((x) => this.dispatchEvent(new CustomEvent(searchResultItemsFetched, {
                 bubbles: true,
                 composed: true,
@@ -66,19 +56,7 @@ export class SearchBoxComponent extends HTMLElement {
         this._subscription.unsubscribe();
     }
 
-    private _timeoutId: any;
-
-    private get _url(): string { return `http://lcboapi.com/products?access_key=${this.apiKey}&q=${this._inputHTMLElement.value}`; }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case "api-key":
-                this.apiKey = newValue;
-                break;
-        }
-    }  
-
-    public apiKey: string;
+    private _timeoutId: any;    
 }
 
 customElements.define(`ce-search-box`,SearchBoxComponent);
