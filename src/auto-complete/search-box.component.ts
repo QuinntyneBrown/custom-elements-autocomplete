@@ -1,4 +1,3 @@
-import {constants} from "./custom-events";
 import {Observable} from "rxjs/Observable";
 import {Subscription} from "rxjs/Subscription";
 import 'rxjs/add/observable/fromEvent';
@@ -9,6 +8,7 @@ import 'rxjs/add/operator/do';
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/lib/repeat";
 import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
+import { searchResultItemsFetched } from "./custom-events";
 
 const styles = unsafeHTML(`<style>${require("./search-box.component.css")}</style>`);
 
@@ -53,7 +53,7 @@ export class SearchBoxComponent extends HTMLElement {
                 const json = await response.json();
                 return json.result;
             })
-            .do((x) => this.dispatchEvent(new CustomEvent(constants.SEARCH_RESULT_ITEMS_FETCHED, {
+            .do((x) => this.dispatchEvent(new CustomEvent(searchResultItemsFetched, {
                 bubbles: true,
                 composed: true,
                 cancelable: false,

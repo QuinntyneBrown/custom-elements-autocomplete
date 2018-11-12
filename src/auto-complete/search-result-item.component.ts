@@ -1,8 +1,8 @@
-import { constants } from "./custom-events";
 import { SearchResultItem } from "./auto-complete.interfaces";
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/lib/repeat";
 import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
+import { searchResultItemClicked } from "./custom-events";
 
 const styles = unsafeHTML(`<style>${require("./search-result-item.component.css")}</style>`);
 
@@ -72,7 +72,7 @@ export class SearchResultItemComponent extends HTMLElement {
     }
 
     public dispatchSearchResultItemEvent () {
-        this.dispatchEvent(new CustomEvent(constants.SEARCH_RESULT_ITEM_CLICKED, {
+        this.dispatchEvent(new CustomEvent(searchResultItemClicked, {
             bubbles: true,
             composed: true,
             cancelable: false,

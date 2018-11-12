@@ -1,4 +1,4 @@
-import { constants } from "./custom-events";
+import { searchResultItemClicked } from "./custom-events";
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/lib/repeat";
 import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
@@ -41,11 +41,11 @@ export class SearchResultItemsComponent extends HTMLElement {
     }
 
     private _setEventListeners() {
-        this.addEventListener(constants.SEARCH_RESULT_ITEM_CLICKED, this.showSearchResultItemDetail);
+        this.addEventListener(searchResultItemClicked, this.showSearchResultItemDetail);
     }
 
     public disconnectedCallback() {
-        this.removeEventListener(constants.SEARCH_RESULT_ITEM_CLICKED, this.showSearchResultItemDetail);
+        this.removeEventListener(searchResultItemClicked, this.showSearchResultItemDetail);
     }
     
     public showSearchResultItemDetail(event: any) {

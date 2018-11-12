@@ -1,4 +1,2 @@
-﻿export const constants = {
-    SEARCH_RESULT_ITEMS_FETCHED: "[Search Result] ITEMS FETCHED",
-    SEARCH_RESULT_ITEM_CLICKED: "[Search Result] ITEM CLICKED",
-};
+﻿export const searchResultItemsFetched = "[Search Result] ITEMS FETCHED";
+export const searchResultItemClicked = "[Search Result] ITEM CLICKED";

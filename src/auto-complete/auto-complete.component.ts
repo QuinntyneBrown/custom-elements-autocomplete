@@ -1,7 +1,7 @@
-import { constants } from "./custom-events";
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/lib/repeat";
 import { unsafeHTML } from "../../node_modules/lit-html/lib/unsafe-html.js";
+import { searchResultItemsFetched } from "./custom-events";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
 
@@ -39,7 +39,7 @@ export class AutoCompleteComponent extends HTMLElement {
     }
     
     private _setEventListeners() {
-        this._searchBoxHTMLElement.addEventListener(constants.SEARCH_RESULT_ITEMS_FETCHED, this.refreshSearchResultItems);
+        this._searchBoxHTMLElement.addEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
     }
 
     public refreshSearchResultItems(e: any) {        
@@ -47,7 +47,7 @@ export class AutoCompleteComponent extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this._searchBoxHTMLElement.removeEventListener(constants.SEARCH_RESULT_ITEMS_FETCHED, this.refreshSearchResultItems);
+        this._searchBoxHTMLElement.removeEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
