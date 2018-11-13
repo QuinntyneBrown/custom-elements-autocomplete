@@ -1,4 +1,5 @@
-﻿export interface SearchResultItem {
+﻿
+export interface SearchResultItem {
     id: number;
     name: string;
     image_thumb_url: string;
@@ -15,10 +16,8 @@ export interface SearchResponseJSON {
 
 export class ProductService {
     public async search(query:string): Promise<SearchResponseJSON> {
-        const response = await fetch(`http://lcboapi.com/products?access_key=${this._apiKey}&q=${query}`);
+        const response = await fetch(`http://lcboapi.com/products?q=${query}`);
         const json = await response.json();
         return json.result;
-    }
-
-    private get _apiKey() { return window["productApiKey"]; }
+    }    
 }

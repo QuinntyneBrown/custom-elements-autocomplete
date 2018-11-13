@@ -1,11 +1,11 @@
 import { searchResultItemClicked } from "./constants";
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { repeat } from "lit-html/directives/repeat";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { SearchResultItem, SearchResponseJSON } from "./product.service";
+import { SearchResultItemComponent } from "./search-result-item.component";
 
 const styles = unsafeHTML(`<style>${require("./search-result-items.component.css")}</style>`);
-
 
 export class SearchResultItemsComponent extends HTMLElement {
     constructor() {
@@ -49,10 +49,10 @@ export class SearchResultItemsComponent extends HTMLElement {
     }
     
     public showSearchResultItemDetail(event: any) {
-        let searchResultItemElements = this.shadowRoot.querySelectorAll("ce-search-result-item");
+        let searchResultItems = this.shadowRoot.querySelectorAll("ce-search-result-item") as NodeListOf<SearchResultItemComponent>;
 
-        for (let i = 0; i < searchResultItemElements.length; i++) {
-            (searchResultItemElements[i] as any).activeSearchResultItem = event.detail.searchResultItem;
+        for (let i = 0; i < searchResultItems.length; i++) {
+            searchResultItems[i].activeSearchResultItem = event.detail.searchResultItem;
         }
     }
 

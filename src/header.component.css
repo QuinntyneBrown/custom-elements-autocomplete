@@ -3,3 +3,7 @@
     display:block;    
     padding: 0px 20px;
 }
+
+::slotted(h1) {
+    color: red;
+}

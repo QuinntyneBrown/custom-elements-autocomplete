@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Custom Elements Autocomplete</title>
+
     <meta charset="utf-8" />
     <base href="/">
     <meta name="viewport"
@@ -14,26 +15,15 @@
               target-densitydpi=device-dpi" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
     
-    <style>
-        :root {
-            font-family: Montserrat;
-            margin: 0;
-            padding: 0;
-            user-select:none;
-            outline:none;
-        }
-
-
-    </style>
 </head>
 <body>
-    <script>
-        window.productApiKey = "MDo5ZjQzZjZjYS0zYzZkLTExZTctODVjZC1lNzY5OWY5Mzg2MjE6NEp5dmw3Y3ZIdEpxU29Ka2diYlhPanBXRFZhbXJyNWVIZ3VJ"
-    </script>
+
     <ce-header>
-        Auto Complete using Custom Elements v1
+        <h1>Auto Complete using Native Web Components</h1>
     </ce-header>
+    <ce-sash class="horizontal"></ce-sash>
     <ce-auto-complete></ce-auto-complete>
-    <script src="dist/app.js?v=5" type="application/x-javascript"></script>
+
+    <script src="dist/app.js"></script>
 </body>
 </html>

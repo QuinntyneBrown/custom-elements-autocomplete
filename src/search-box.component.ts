@@ -6,8 +6,8 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/do';
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { repeat } from "lit-html/directives/repeat";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { searchResultItemsFetched } from "./constants";
 import { ProductService } from "./product.service";
 
@@ -54,9 +54,7 @@ export class SearchBoxComponent extends HTMLElement {
 
     disconnectedCallback() {
         this._subscription.unsubscribe();
-    }
-
-    private _timeoutId: any;    
+    } 
 }
 
 customElements.define(`ce-search-box`,SearchBoxComponent);

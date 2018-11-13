@@ -1,5 +1,6 @@
 :host {
-    display:block;
+    display: block;
+    font-family: Montserrat;    
 }
 
 img {
@@ -8,7 +9,7 @@ img {
 }
 
 .search-result-item-detail-name {
-    //font-size:1em;
+    
 }
 
 .search-result-item-detail-category {

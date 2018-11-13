@@ -1,6 +1,6 @@
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { repeat } from "lit-html/directives/repeat";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { searchResultItemClicked } from "./constants";
 import { SearchResultItem } from "./product.service";
 
@@ -28,13 +28,13 @@ export class SearchResultItemComponent extends HTMLElement {
         return html`
             ${styles}
             <div class="search-result-item-container">
-                <img />
+                <img src="${this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url}" />
                 <div class="search-result-item-details">
-                    <h2></h2>
+                    <h2>${this.searchResultItem.name}</h2>
                 </div>
             </div>
 
-            <ce-search-result-item-detail></ce-search-result-item-detail>
+            <ce-search-result-item-detail search-result-item='${JSON.stringify(this.searchResultItem)}'></ce-search-result-item-detail>
         `;
     }
 
@@ -48,21 +48,12 @@ export class SearchResultItemComponent extends HTMLElement {
             this.setAttribute('tabindex', '0');
 
         render(this.template, this.shadowRoot);
-
-        this._bind();
+        
         this._setEventListeners();
     }
 
     disconnectedCallback() {
         this.removeEventListener("click", this.dispatchSearchResultItemEvent);
-    }
-
-    private _bind() {
-        if (this.searchResultItem) {
-            this.headingHTMLElement.innerHTML = this.searchResultItem.name;
-            this.thumbnailHTMLElement.src = this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url;
-            this.searchResultItemDetailsHTMLElement.setAttribute("search-result-item", JSON.stringify(this.searchResultItem));
-        }
     }
 
     public get defaultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
@@ -88,15 +79,12 @@ export class SearchResultItemComponent extends HTMLElement {
         }
     }
     
-    public searchResultItem: SearchResultItem;
+    public searchResultItem: SearchResultItem = <SearchResultItem>{};
 
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case "search-result-item":                
-                this.searchResultItem = JSON.parse(newValue);
-
-                if (this.parentNode)
-                    this._bind();
+                this.searchResultItem = JSON.parse(newValue);                
                 break;
         }
     }   

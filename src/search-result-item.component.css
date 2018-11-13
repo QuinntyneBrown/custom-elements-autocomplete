@@ -1,11 +1,12 @@
 :host {
-    display:block;
-    cursor:pointer;
-    height:50px;
+    display: block;
+    cursor: pointer;
+    height: 50px;
     margin: 20px 0;
-    overflow:hidden;
+    overflow: hidden;
     transition: height 500ms;
-    outline:none;
+    outline: none;
+    font-family: Montserrat;
 }
 
 img, .search-result-item-details {

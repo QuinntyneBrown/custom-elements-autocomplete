@@ -1,6 +1,6 @@
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { repeat } from "lit-html/directives/repeat";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { searchResultItemsFetched } from "./constants";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);

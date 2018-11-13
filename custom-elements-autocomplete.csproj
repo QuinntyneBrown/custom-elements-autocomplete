@@ -73,12 +73,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="gzip.txt" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="src\auto-complete.component.css">
       <DependentUpon>auto-complete.component.ts</DependentUpon>
     </Content>
+    <Content Include="src\sash.component.css" />
     <Content Include="src\search-box.component.css">
       <DependentUpon>search-box.component.ts</DependentUpon>
     </Content>
@@ -97,6 +99,7 @@
     <Content Include="webpack.config.js" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
+    <Content Include="codeGeneratorSettings.json" />
     <None Include="Properties\PublishProfiles\custom-elements-autocomplete - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\custom-elements-autocomplete - Web Deploy.pubxml" />
   </ItemGroup>
@@ -108,7 +111,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <TypeScriptCompile Include="src\auth.interceptor.ts" />
     <TypeScriptCompile Include="src\product.service.ts" />
+    <TypeScriptCompile Include="src\sash.component.ts" />
     <TypeScriptCompile Include="src\search-box.component.ts" />
     <TypeScriptCompile Include="src\constants.ts" />
     <TypeScriptCompile Include="src\search-result-item-detail.component.ts" />

@@ -15,10 +15,13 @@ export class HeaderComponent extends HTMLElement {
                     display:block;    
                     padding: 0px 20px;
                 }
+
+                ::slotted(h1) {
+                    font-family: Montserrat;
+                }
+
             </style>
-            <h1>
-                <slot></slot>
-            </h1>
+            <slot></slot>            
         `;
     }
 }
