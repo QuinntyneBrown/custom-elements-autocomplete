@@ -1,49 +1,55 @@
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/lib/repeat";
-import { unsafeHTML } from "lit-html/lib/unsafe-html";
+import { repeat } from "lit-html/directives/repeat";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { searchResultItemsFetched } from "./constants";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
 
 export class AutoCompleteComponent extends HTMLElement {
-    constructor() {
-        super();          
-        this.refreshSearchResultItems = this.refreshSearchResultItems.bind(this);   
-    }
-    
-    private get _searchBoxHTMLElement() { return this.shadowRoot.querySelector("ce-search-box"); }
+  constructor() {
+    super();      
+    this.refreshSearchResultItems = this.refreshSearchResultItems.bind(this);   
+  }
+  
+  private get _searchBoxHTMLElement() { return this.shadowRoot.querySelector("ce-search-box"); }
 
-    private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items"); }
-    
-    public get template(): TemplateResult {
-        return html`
-            ${styles}
-            <ce-search-box></ce-search-box>
-            <ce-search-result-items></ce-search-result-items>
-        `;
-    }
-    connectedCallback() {     
-        if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
+  private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items"); }
+  
+  public get template(): TemplateResult {
+    return html`
+      ${styles}
+      <ce-search-box></ce-search-box>
+      <ce-search-result-items></ce-search-result-items>
+    `;
+  }
 
-        if (!this.hasAttribute('role'))
-            this.setAttribute('role', 'autocomplete');
+  async connectedCallback() {
+    this.attachShadow({ mode: 'open' });
 
-        render(this.template, this.shadowRoot);
+    if (!this.hasAttribute('role'))
+      this.setAttribute('role', 'autocomplete');
 
-        this._setEventListeners();
-    }
-    
-    private _setEventListeners() {
-        this._searchBoxHTMLElement.addEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
-    }
+    await Promise.all([
+      customElements.whenDefined('ce-search-box'),
+      customElements.whenDefined('ce-search-result-items'),
+    ]);
 
-    public refreshSearchResultItems(e: any) {        
-        this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(e.detail.searchResultItems));
-    }
+    render(this.template, this.shadowRoot);
 
-    disconnectedCallback() {
-        this._searchBoxHTMLElement.removeEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
-    }   
+    this._setEventListeners();
+  }
+  
+  private _setEventListeners() {
+    this._searchBoxHTMLElement.addEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
+  }
+
+  public refreshSearchResultItems(e: any) {    
+    this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(e.detail.searchResultItems));
+  }
+
+  disconnectedCallback() {
+    this._searchBoxHTMLElement.removeEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
+  }   
 }
 
 customElements.define(`ce-auto-complete`, AutoCompleteComponent);

@@ -1,4 +1,5 @@
-﻿import "./auto-complete.component";
+﻿import "./auth.interceptor";
+import "./auto-complete.component";
 import "./constants";
 import "./search-box.component";
 import "./search-result-item-detail.component";
