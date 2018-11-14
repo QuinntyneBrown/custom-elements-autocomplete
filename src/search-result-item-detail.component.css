@@ -1,6 +1,7 @@
 :host {
-    display: block;
+    display: grid;
     font-family: Montserrat;    
+    grid-template-columns: min-content 1fr;
 }
 
 img {
@@ -8,32 +9,11 @@ img {
     display: block;
 }
 
-.search-result-item-detail-name {
-    
-}
-
-.search-result-item-detail-category {
+h3:first-of-type {
+    background-color: #ff4500;
+    color: #ffffff;
     display: inline-block;
-    line-height: 2.5em;
     font-size: .6em;
+    line-height: 2.5em;
     padding: 0 10px;
-    color: #fff;
-    background-color: orangered;
-}
-
-.search-result-item-detail-details-container {
-    width: calc(100% - 82px);
-}
-
-img,
-.search-result-item-detail-details-container {
-    position: relative;
-    float: left;
-    display: inline-block;
-}
-
-:host(::after) {
-    content: " ";
-    display:block;
-    clear:both;
 }

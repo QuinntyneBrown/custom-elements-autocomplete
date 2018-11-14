@@ -1,35 +1,25 @@
-﻿const webpack = require('webpack');
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-const Uglify = require("uglifyjs-webpack-plugin");
+const path = require('path');
 
 module.exports = {
-    devtool: 'source-map',
-    entry: {
-        'app': './src/index'
-    },
+    entry: './src/index.ts',
     output: {
-        path: __dirname + "/dist",
-        filename: "[name].js",
-        publicPath: "dist/"
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'app.js'
     },
     resolve: {
-        extensions: ['.ts', '.js', '.jpg', '.jpeg', '.gif', '.png', '.css', '.html']
+        extensions: ['.ts','.js']
     },
     module: {
-        loaders: [
-            { test: /\.css$/, loader: 'raw-loader' },
-            { test: /\.html$/, loaders: ['html-loader'] },
-            { test: /\.ts$/, loaders: ['awesome-typescript-loader'], exclude: /node_modules/ }
-        ]
-    },
-    plugins: [
-        new Uglify({
-            uglifyOptions: {
-                output: {
-                    comments: false,
-                    beautify: false
-                }
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['raw-loader']
+            },
+            {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                use: ['awesome-typescript-loader']
             }
-        })
-    ]
+        ]
+    }
 };

@@ -18,34 +18,27 @@ export class SearchResultItemComponent extends HTMLElement {
         ];
     }
 
-    private get headingHTMLElement() { return this.shadowRoot.querySelector("h2"); }
-
-    private get thumbnailHTMLElement() { return this.shadowRoot.querySelector("img"); }
-
     private get searchResultItemDetailsHTMLElement() { return this.shadowRoot.querySelector("ce-search-result-item-detail"); }
 
     public get template(): TemplateResult {
         return html`
-            ${styles}
-            <div class="search-result-item-container">
-                <img src="${this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url}" />
-                <div class="search-result-item-details">
-                    <h2>${this.searchResultItem.name}</h2>
-                </div>
-            </div>
-
+            ${styles}            
+            <img src="${this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url}" />
+            <h2>${this.searchResultItem.name}</h2>
             <ce-search-result-item-detail search-result-item='${JSON.stringify(this.searchResultItem)}'></ce-search-result-item-detail>
         `;
     }
 
-    connectedCallback() {                
-        if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
+    async connectedCallback() {                
+        this.attachShadow({ mode: 'open' });
 
         if (!this.hasAttribute('role'))
             this.setAttribute('role', 'searchresultitem');
 
         if (!this.hasAttribute('tabindex'))
             this.setAttribute('tabindex', '0');
+
+        await customElements.whenDefined('ce-search-result-item-detail');
 
         render(this.template, this.shadowRoot);
         
@@ -71,21 +64,21 @@ export class SearchResultItemComponent extends HTMLElement {
         } as CustomEventInit));
     }
 
-    public set activeSearchResultItem(value: SearchResultItem) {        
-        if (this.searchResultItem.id == value.id && !this.classList.contains("active")) {         
+    public set isActive(value:boolean) {
+        if (value && !this.classList.contains("active")) {         
             this.classList.add("active");
         } else {
             this.classList.remove("active")
         }
     }
-    
+
     public searchResultItem: SearchResultItem = <SearchResultItem>{};
 
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case "search-result-item":                
                 this.searchResultItem = JSON.parse(newValue);                
-                break;
+                break;                
         }
     }   
 }

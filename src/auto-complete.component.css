@@ -1,19 +1,11 @@
 :host {
-    display:block;
-    width:calc(100% - 40px);
-    margin:30px 20px;
+    display: block;
+    margin: 30px 20px;
+    width: calc(100% - 40px);
 }
 
 ce-search-box {
     display: inline-block;
-    position: relative;
-    float: left;
     margin: 0 20px;
     width: calc(100% - 40px);
-}
-
-:host::after {
-    clear:both;
-    display:block;
-    content: " ";
 }
