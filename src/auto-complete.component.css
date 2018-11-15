@@ -5,7 +5,6 @@
 }
 
 ce-search-box {
-    display: inline-block;
     margin: 0 20px;
     width: calc(100% - 40px);
 }

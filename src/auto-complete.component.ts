@@ -1,18 +1,21 @@
 import { render, TemplateResult, html } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import { searchResultItemsFetched } from "./constants";
+import { Subscription, fromEvent } from "rxjs";
+import { switchMap, tap, debounceTime } from "rxjs/operators";
+import { ProductService } from "./product.service";
+import { SearchBoxComponent } from "./search-box.component";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
 
 export class AutoCompleteComponent extends HTMLElement {
-  constructor() {
-    super();      
-    this.refreshSearchResultItems = this.refreshSearchResultItems.bind(this);   
-  }
-  
-  private get _searchBoxHTMLElement() { return this.shadowRoot.querySelector("ce-search-box"); }
+
+  private _productService: ProductService = new ProductService();
+
+  private get _searchBoxHTMLElement() { return <SearchBoxComponent>this.shadowRoot.querySelector("ce-search-box"); }
 
   private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items"); }
+  
+  private _subscription: Subscription;
   
   public get template(): TemplateResult {
     return html`
@@ -37,18 +40,22 @@ export class AutoCompleteComponent extends HTMLElement {
 
     this._setEventListeners();
   }
-  
+
   private _setEventListeners() {
-    this._searchBoxHTMLElement.addEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
+    this._subscription = fromEvent(this._searchBoxHTMLElement, "keyup")
+      .pipe(
+        debounceTime(200),
+        switchMap(() => this._productService.search(this._searchBoxHTMLElement.value)),
+        tap(searchResultItems => this.refreshSearchResultItems(searchResultItems))
+      )
+      .subscribe();    
   }
 
-  public refreshSearchResultItems(e: any) {    
-    this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(e.detail.searchResultItems));
+  private refreshSearchResultItems(searchResultItems: any) {    
+    this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(searchResultItems));
   }
 
-  disconnectedCallback() {
-    this._searchBoxHTMLElement.removeEventListener(searchResultItemsFetched, this.refreshSearchResultItems);
-  }   
+  disconnectedCallback() { this._subscription.unsubscribe(); }   
 }
 
 customElements.define(`ce-auto-complete`, AutoCompleteComponent);

@@ -6,18 +6,12 @@ import { SearchResultItem } from "./product.service";
 const styles = unsafeHTML(`<style>${require("./search-result-item.component.css")}</style>`);
 
 export class SearchResultItemComponent extends HTMLElement {
-    constructor() {
-        super();        
-        this.dispatchSearchResultItemEvent = this.dispatchSearchResultItemEvent.bind(this); 
-    }
 
     static get observedAttributes() {
         return [
             "search-result-item"
         ];
     }
-
-    private get searchResultItemDetailsHTMLElement() { return this.shadowRoot.querySelector("ce-search-result-item-detail"); }
 
     public get template(): TemplateResult {
         return html`
@@ -39,29 +33,10 @@ export class SearchResultItemComponent extends HTMLElement {
 
         await customElements.whenDefined('ce-search-result-item-detail');
 
-        render(this.template, this.shadowRoot);
-        
-        this._setEventListeners();
-    }
-
-    disconnectedCallback() {
-        this.removeEventListener("click", this.dispatchSearchResultItemEvent);
+        render(this.template, this.shadowRoot);        
     }
 
     public get defaultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }
-
-    private _setEventListeners() {
-        this.addEventListener("click", this.dispatchSearchResultItemEvent);
-    }
-
-    public dispatchSearchResultItemEvent () {
-        this.dispatchEvent(new CustomEvent(searchResultItemClicked, {
-            bubbles: true,
-            composed: true,            
-            cancelable: false,
-            detail: { searchResultItem: this.searchResultItem }
-        }));
-    }
 
     public set isActive(value:boolean) {
         if (value && !this.classList.contains("active")) {         

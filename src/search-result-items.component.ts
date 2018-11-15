@@ -21,7 +21,7 @@ export class SearchResultItemsComponent extends HTMLElement {
     public get template(): TemplateResult {
         return html`
             ${repeat(this.searchResultItems, i => i.id, i => html`
-            <ce-search-result-item search-result-item="${JSON.stringify(i)}"></ce-search-result-item>`)}
+            <ce-search-result-item search-result-item="${JSON.stringify(i)}"  @click=${this.showSearchResultItemDetail}></ce-search-result-item>`)}
         `;
     }
 
@@ -35,29 +35,21 @@ export class SearchResultItemsComponent extends HTMLElement {
 
         render(this.template, this.shadowRoot);
         
-        this._setEventListeners();
     }
 
-    private _setEventListeners() {
-        this.addEventListener(searchResultItemClicked, this.showSearchResultItemDetail);
-    }
-
-    public disconnectedCallback() {
-        this.removeEventListener(searchResultItemClicked, this.showSearchResultItemDetail);
-    }
-    
-    public showSearchResultItemDetail(event: any) {
+    public showSearchResultItemDetail(event: any) {        
         let searchResultItems = this.shadowRoot.querySelectorAll("ce-search-result-item") as NodeListOf<SearchResultItemComponent>;
 
         for (let i = 0; i < searchResultItems.length; i++) {            
-            searchResultItems[i].isActive = searchResultItems[i].searchResultItem.id == event.detail.searchResultItem.id;            
+            searchResultItems[i].isActive = searchResultItems[i].searchResultItem.id == event.currentTarget.searchResultItem.id;            
         }
     }
 
     attributeChangedCallback (name, newValue) {
         switch (name) {
             case "search-result-items":
-                this.searchResultItems = JSON.parse(newValue);
+                if(newValue)
+                    this.searchResultItems = JSON.parse(newValue);
 
                 if (this.parentNode)
                     render(this.template, this.shadowRoot);
