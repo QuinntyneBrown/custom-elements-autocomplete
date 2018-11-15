@@ -1,6 +1,5 @@
 import { render, TemplateResult, html } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import { searchResultItemClicked } from "./constants";
 import { SearchResultItem } from "./product.service";
 
 const styles = unsafeHTML(`<style>${require("./search-result-item.component.css")}</style>`);

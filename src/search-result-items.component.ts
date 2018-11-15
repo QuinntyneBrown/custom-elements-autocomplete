@@ -1,4 +1,3 @@
-import { searchResultItemClicked } from "./constants";
 import { render, TemplateResult, html } from "lit-html";
 import { repeat } from "lit-html/directives/repeat";
 import { SearchResultItem } from "./product.service";
