@@ -1,5 +1,4 @@
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/directives/repeat";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { searchResultItemClicked } from "./constants";
 import { SearchResultItem } from "./product.service";
@@ -58,10 +57,10 @@ export class SearchResultItemComponent extends HTMLElement {
     public dispatchSearchResultItemEvent () {
         this.dispatchEvent(new CustomEvent(searchResultItemClicked, {
             bubbles: true,
-            composed: true,
+            composed: true,            
             cancelable: false,
             detail: { searchResultItem: this.searchResultItem }
-        } as CustomEventInit));
+        }));
     }
 
     public set isActive(value:boolean) {

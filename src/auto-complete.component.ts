@@ -1,5 +1,4 @@
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/directives/repeat";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { searchResultItemsFetched } from "./constants";
 

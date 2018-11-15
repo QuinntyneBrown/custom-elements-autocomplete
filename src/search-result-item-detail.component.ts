@@ -1,7 +1,6 @@
 import { render, TemplateResult, html } from "lit-html";
-import { repeat } from "lit-html/directives/repeat";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import { SearchResultItem, SearchResponseJSON } from "./product.service";
+import { SearchResultItem } from "./product.service";
 
 const styles = unsafeHTML(`<style>${require("./search-result-item-detail.component.css")}</style>`);
 
@@ -38,7 +37,6 @@ export class SearchResultItemDetailComponent extends HTMLElement {
   }
 
   public get defultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"; }
-  
   
   attributeChangedCallback (name, oldValue, newValue) {
     switch (name) {
