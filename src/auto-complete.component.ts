@@ -2,7 +2,7 @@ import { render, TemplateResult, html } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { Subscription, fromEvent } from "rxjs";
 import { switchMap, tap, debounceTime } from "rxjs/operators";
-import { ProductService } from "./product.service";
+import { ProductService, SearchResultItem } from "./product.service";
 import { SearchBoxComponent } from "./search-box.component";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
@@ -51,7 +51,7 @@ export class AutoCompleteComponent extends HTMLElement {
       .subscribe();    
   }
 
-  private refreshSearchResultItems(searchResultItems: any) {    
+  private refreshSearchResultItems(searchResultItems: SearchResultItem[]) {    
     this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(searchResultItems));
   }
 
