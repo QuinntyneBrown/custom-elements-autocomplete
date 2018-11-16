@@ -21,7 +21,9 @@ export class SearchBoxComponent extends HTMLElement {
     render(this.template, this.shadowRoot);
   }
 
-  public get value() { return this.shadowRoot.querySelector("input").value; }
+  public get value() {
+    return this.shadowRoot.querySelector("input").value;
+  }
 }
 
 customElements.define(`ce-search-box`,SearchBoxComponent);

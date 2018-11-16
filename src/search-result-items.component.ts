@@ -6,7 +6,7 @@ import { SearchResultItemComponent } from "./search-result-item.component";
 export class SearchResultItemsComponent extends HTMLElement {
     constructor() {
         super();        
-        this.showSearchResultItemDetail = this.showSearchResultItemDetail.bind(this);        
+        this.showSearchResultItemDetail = this.showSearchResultItemDetail.bind(this);                
     }
 
     public searchResultItems: Array<SearchResultItem> = [];
