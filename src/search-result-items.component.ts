@@ -9,22 +9,27 @@ export class SearchResultItemsComponent extends HTMLElement {
         this.showSearchResultItemDetail = this.showSearchResultItemDetail.bind(this);                
     }
 
-    public searchResultItems: Array<SearchResultItem> = [];
+    public _searchResultItems: Array<SearchResultItem> = [];
 
-    static get observedAttributes () {
-        return [
-            "search-result-items"
-        ];
+    public get searchResultItems(): Array<SearchResultItem> {
+        return this._searchResultItems;
+    }
+
+    public set searchResultItems(value) {
+        this._searchResultItems = value;
+
+        if (this.parentNode)
+            render(this.template, this.shadowRoot);
     }
 
     public get template(): TemplateResult {
         return html`
             ${repeat(this.searchResultItems, i => i.id, i => html`
-            <ce-search-result-item search-result-item="${JSON.stringify(i)}"  @click=${this.showSearchResultItemDetail}></ce-search-result-item>`)}
+            <ce-search-result-item .searchResultItem="${i}"  @click=${this.showSearchResultItemDetail}></ce-search-result-item>`)}
         `;
     }
 
-    async connectedCallback() {
+    async connectedCallback() {        
         this.attachShadow({ mode: 'open' });
 
         if (!this.hasAttribute('role'))
@@ -32,8 +37,7 @@ export class SearchResultItemsComponent extends HTMLElement {
 
         await customElements.whenDefined('ce-search-result-item');
 
-        render(this.template, this.shadowRoot);
-        
+        render(this.template, this.shadowRoot);        
     }
 
     public showSearchResultItemDetail(event: any) {        
@@ -41,18 +45,6 @@ export class SearchResultItemsComponent extends HTMLElement {
 
         for (let i = 0; i < searchResultItems.length; i++) {            
             searchResultItems[i].isActive = searchResultItems[i].searchResultItem.id == event.currentTarget.searchResultItem.id;            
-        }
-    }
-
-    attributeChangedCallback (name, newValue) {
-        switch (name) {
-            case "search-result-items":
-                if(newValue)
-                    this.searchResultItems = JSON.parse(newValue);
-
-                if (this.parentNode)
-                    render(this.template, this.shadowRoot);
-                break;
         }
     }
 }

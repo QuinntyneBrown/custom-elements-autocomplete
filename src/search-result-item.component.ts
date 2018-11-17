@@ -18,7 +18,7 @@ export class SearchResultItemComponent extends HTMLElement {
             ${styles}            
             <img src="${this.searchResultItem.image_thumb_url == null ? this.defaultImageUrl : this.searchResultItem.image_thumb_url}" />
             <h2>${this.searchResultItem.name}</h2>
-            <ce-search-result-item-detail search-result-item='${JSON.stringify(this.searchResultItem)}'></ce-search-result-item-detail>
+            <ce-search-result-item-detail .searchResultItem='${this.searchResultItem}'></ce-search-result-item-detail>
         `;
     }
 

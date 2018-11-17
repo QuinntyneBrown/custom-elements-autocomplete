@@ -3,6 +3,7 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { Subscription, fromEvent } from "rxjs";
 import { switchMap, tap, debounceTime } from "rxjs/operators";
 import { ProductService } from "./product.service";
+import { SearchResultItemsComponent } from "./search-result-items.component";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
 
@@ -12,7 +13,7 @@ export class AutoCompleteComponent extends HTMLElement {
 
   private get _inputHTMLElement() { return this.shadowRoot.querySelector("input"); }
 
-  private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items"); }
+  private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items") as SearchResultItemsComponent; }
   
   private _subscription: Subscription;
   
@@ -47,13 +48,11 @@ export class AutoCompleteComponent extends HTMLElement {
       .pipe(
         debounceTime(200),
         switchMap(() => this._productService.search(this._inputHTMLElement.value)),
-        tap(searchResultItems => this.refreshSearchResultItems(searchResultItems))
+        tap(searchResultItems => {
+          this._searchResultItemsElement.searchResultItems = searchResultItems;
+        })
       )
       .subscribe();    
-  }
-
-  private refreshSearchResultItems(searchResultItems: any) {    
-    this._searchResultItemsElement.setAttribute("search-result-items", JSON.stringify(searchResultItems));
   }
 
   disconnectedCallback() { this._subscription.unsubscribe(); }   
