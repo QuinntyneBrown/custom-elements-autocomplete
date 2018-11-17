@@ -3,7 +3,6 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { Subscription, fromEvent } from "rxjs";
 import { switchMap, tap, debounceTime } from "rxjs/operators";
 import { ProductService } from "./product.service";
-import { SearchBoxComponent } from "./search-box.component";
 
 const styles = unsafeHTML(`<style>${require("./auto-complete.component.css")}</style>`);
 
@@ -11,7 +10,7 @@ export class AutoCompleteComponent extends HTMLElement {
 
   private _productService: ProductService = new ProductService();
 
-  private get _searchBoxHTMLElement() { return <SearchBoxComponent>this.shadowRoot.querySelector("ce-search-box"); }
+  private get _inputHTMLElement() { return this.shadowRoot.querySelector("input"); }
 
   private get _searchResultItemsElement() { return this.shadowRoot.querySelector("ce-search-result-items"); }
   
@@ -20,7 +19,9 @@ export class AutoCompleteComponent extends HTMLElement {
   public get template(): TemplateResult {
     return html`
       ${styles}
-      <ce-search-box></ce-search-box>
+      <ce-form-field>
+        <input type="text" placeholder="Search For..."/>
+      </ce-form-field>
       <ce-search-result-items></ce-search-result-items>
     `;
   }
@@ -32,7 +33,7 @@ export class AutoCompleteComponent extends HTMLElement {
       this.setAttribute('role', 'autocomplete');
 
     await Promise.all([
-      customElements.whenDefined('ce-search-box'),
+      customElements.whenDefined('ce-form-field'),
       customElements.whenDefined('ce-search-result-items'),
     ]);
 
@@ -42,10 +43,10 @@ export class AutoCompleteComponent extends HTMLElement {
   }
 
   private _setEventListeners() {
-    this._subscription = fromEvent(this._searchBoxHTMLElement, "keyup")
+    this._subscription = fromEvent(this._inputHTMLElement, "keyup")
       .pipe(
         debounceTime(200),
-        switchMap(() => this._productService.search(this._searchBoxHTMLElement.value)),
+        switchMap(() => this._productService.search(this._inputHTMLElement.value)),
         tap(searchResultItems => this.refreshSearchResultItems(searchResultItems))
       )
       .subscribe();    

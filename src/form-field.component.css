@@ -3,7 +3,7 @@
     outline:none;
 }
 
-input {
+::slotted(input) {
     line-height: 3em;
     margin-bottom: 30px;
     outline: none;
