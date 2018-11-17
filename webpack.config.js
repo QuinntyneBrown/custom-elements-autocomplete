@@ -22,5 +22,10 @@ module.exports = {
                 use: ['awesome-typescript-loader']
             }
         ]
+    },
+    devServer: {
+        historyApiFallback: true,
+        compress: true,
+        port: 9001
     }
 };
