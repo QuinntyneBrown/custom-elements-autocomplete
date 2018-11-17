@@ -6,13 +6,6 @@ import { Transform } from "stream";
 const styles = unsafeHTML(`<style>${require("./search-result-item.component.css")}</style>`);
 
 export class SearchResultItemComponent extends HTMLElement {
-
-    static get observedAttributes() {
-        return [
-            "search-result-item"
-        ];
-    }
-
     public get template(): TemplateResult {
         return html`
             ${styles}            
@@ -56,14 +49,6 @@ export class SearchResultItemComponent extends HTMLElement {
     }
 
     public searchResultItem: SearchResultItem = <SearchResultItem>{};
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        switch (name) {
-            case "search-result-item":                
-                this.searchResultItem = JSON.parse(newValue);                
-                break;                
-        }
-    }   
 }
 
 customElements.define(`ce-search-result-item`, SearchResultItemComponent);

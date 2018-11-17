@@ -9,11 +9,7 @@ export class SearchResultItemsComponent extends HTMLElement {
         this.showSearchResultItemDetail = this.showSearchResultItemDetail.bind(this);                
     }
 
-    public _searchResultItems: Array<SearchResultItem> = [];
-
-    public get searchResultItems(): Array<SearchResultItem> {
-        return this._searchResultItems;
-    }
+    private _searchResultItems: Array<SearchResultItem> = [];
 
     public set searchResultItems(value) {
         this._searchResultItems = value;
@@ -24,7 +20,7 @@ export class SearchResultItemsComponent extends HTMLElement {
 
     public get template(): TemplateResult {
         return html`
-            ${repeat(this.searchResultItems, i => i.id, i => html`
+            ${repeat(this._searchResultItems, i => i.id, i => html`
             <ce-search-result-item .searchResultItem="${i}"  @click=${this.showSearchResultItemDetail}></ce-search-result-item>`)}
         `;
     }
