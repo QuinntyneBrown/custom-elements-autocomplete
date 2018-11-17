@@ -1,4 +1,5 @@
 const path = require('path');
+const {GenerateSW} = require('workbox-webpack-plugin');
 
 module.exports = {
     entry: './src/index.ts',
@@ -27,5 +28,8 @@ module.exports = {
         historyApiFallback: true,
         compress: true,
         port: 9001
-    }
+    },
+    plugins: [
+        new GenerateSW()
+    ]
 };

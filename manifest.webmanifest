@@ -1,0 +1,11 @@
+{
+    "name": "Product Listings App",
+    "short_name": "App",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#2A3443",
+    "description": "Native Web Components Demo",
+    "theme_color": "#2A3443",
+    "icons": [
+    ]
+  }
