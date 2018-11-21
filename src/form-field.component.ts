@@ -19,7 +19,6 @@ export class FormFieldComponent extends HTMLElement {
       <slot></slot>
     `;
   }
-
 }
 
 customElements.define(`ce-form-field`,FormFieldComponent);

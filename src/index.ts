@@ -4,6 +4,8 @@ import "./search-result-item-detail.component";
 import "./search-result-item.component";
 import "./search-result-items.component";
 import "./header.component";
+import "@material/mwc-icon";
+import "@material/mwc-formfield";
 
 async function registerSW() {
     if ('serviceWorker' in navigator) {

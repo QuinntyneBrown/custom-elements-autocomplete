@@ -20,12 +20,18 @@ export class SearchResultItemsComponent extends HTMLElement {
 
     public get template(): TemplateResult {
         return html`
+            <style>
+                :host {
+                    display:block;               
+                }
+            </style>
             ${repeat(this._searchResultItems, i => i.id, i => html`
             <ce-search-result-item .searchResultItem="${i}"  @click=${this.showSearchResultItemDetail}></ce-search-result-item>`)}
         `;
     }
 
     async connectedCallback() {        
+        
         this.attachShadow({ mode: 'open' });
 
         if (!this.hasAttribute('role'))
@@ -36,12 +42,9 @@ export class SearchResultItemsComponent extends HTMLElement {
         render(this.template, this.shadowRoot);        
     }
 
-    public showSearchResultItemDetail(event: any) {        
-        let searchResultItems = this.shadowRoot.querySelectorAll("ce-search-result-item") as NodeListOf<SearchResultItemComponent>;
-
-        for (let i = 0; i < searchResultItems.length; i++) {            
-            searchResultItems[i].isActive = searchResultItems[i].searchResultItem.id == event.currentTarget.searchResultItem.id;            
-        }
+    public showSearchResultItemDetail(event: any) {                        
+        Array.from(this.shadowRoot.querySelectorAll("ce-search-result-item") as NodeListOf<SearchResultItemComponent>)
+        .map(e => e.isActive = e.searchResultItem.id == event.currentTarget.searchResultItem.id);
     }
 }
 

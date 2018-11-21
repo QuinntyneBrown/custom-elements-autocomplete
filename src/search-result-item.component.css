@@ -9,6 +9,7 @@
     outline: none;
     overflow: hidden;
     transition: height 500ms;
+    background-color: #fff;
 }
 
 :host(.active) {

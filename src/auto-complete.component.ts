@@ -35,15 +35,11 @@ export class AutoCompleteComponent extends HTMLElement {
 
     await Promise.all([
       customElements.whenDefined('ce-form-field'),
-      customElements.whenDefined('ce-search-result-items'),
+      customElements.whenDefined('ce-search-result-items')
     ]);
 
     render(this.template, this.shadowRoot);
 
-    this._setEventListeners();
-  }
-
-  private _setEventListeners() {
     this._subscription = fromEvent(this._inputHTMLElement, "keyup")
       .pipe(
         debounceTime(200),
@@ -52,7 +48,7 @@ export class AutoCompleteComponent extends HTMLElement {
           this._searchResultItemsElement.searchResultItems = searchResultItems;
         })
       )
-      .subscribe();    
+      .subscribe();
   }
 
   disconnectedCallback() { this._subscription.unsubscribe(); }   

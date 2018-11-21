@@ -10,7 +10,6 @@ export interface SearchResultItem {
   volume_in_milliliters: string;
 }
 
-
 export class ProductService {
   public async search(query:string): Promise<SearchResultItem[]> {
     const url = `http://lcboapi.com/products?q=${query}`;    

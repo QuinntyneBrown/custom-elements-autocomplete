@@ -31,7 +31,6 @@ export class SearchResultItemDetailComponent extends HTMLElement {
   }
 
   public get defultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg"; }
-  
 }
 
 customElements.define(`ce-search-result-item-detail`,SearchResultItemDetailComponent);

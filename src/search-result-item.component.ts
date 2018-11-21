@@ -1,7 +1,6 @@
 import { render, TemplateResult, html } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { SearchResultItem } from "./product.service";
-import { Transform } from "stream";
 
 const styles = unsafeHTML(`<style>${require("./search-result-item.component.css")}</style>`);
 
@@ -27,15 +26,6 @@ export class SearchResultItemComponent extends HTMLElement {
         await customElements.whenDefined('ce-search-result-item-detail');
 
         render(this.template, this.shadowRoot);        
-
-        this.animate([
-             <any>{ transform: 'scale(0) rotate(0deg)' },
-             <any>{ transform: 'scale(1) rotate(1080deg)' }           
-        ], <any>{
-            duration: 1000, 
-            easing:'cubic-bezier(.88,.02,.06,1)',
-            fill:'forwards'            
-        });
     }
 
     public get defaultImageUrl() { return "http://www.lcbo.com/content/dam/lcbo/products/generic.jpg/jcr:content/renditions/cq5dam.thumbnail.319.319.png"; }

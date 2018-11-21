@@ -3,7 +3,6 @@ import { render, html, TemplateResult } from "lit-html";
 export class HeaderComponent extends HTMLElement {
 
   connectedCallback() {
-
     this.attachShadow({ mode: 'open' });
 
     render(this.template, this.shadowRoot);     

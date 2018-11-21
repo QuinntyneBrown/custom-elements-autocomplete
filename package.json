@@ -18,5 +18,9 @@
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "^3.1.10",
     "workbox-webpack-plugin": "^3.6.3"
+  },
+  "dependencies": {
+    "@material/mwc-formfield": "^0.3.2",
+    "@material/mwc-icon": "^0.3.2"
   }
 }
