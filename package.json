@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/node": "10.12.7",
     "awesome-typescript-loader": "5.2.1",
-    "lit-html": "0.13.0",
+    "lit-html": "^1.0.0-rc.1",
     "live-server": "1.2.0",
     "raw-loader": "0.5.1",
     "rxjs": "6.3.3",
