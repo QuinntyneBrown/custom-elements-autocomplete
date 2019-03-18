@@ -7,6 +7,8 @@ import "./header.component";
 import "@material/mwc-icon";
 import "@material/mwc-formfield";
 
+require('file-loader?name=[name].[ext]!../index.html');
+
 async function registerSW() {
     if ('serviceWorker' in navigator) {
       try {
