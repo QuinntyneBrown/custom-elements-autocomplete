@@ -6,6 +6,7 @@ import "./search-result-items.component";
 import "./header.component";
 import "@material/mwc-icon";
 import "@material/mwc-formfield";
+import "./example.component";
 
 require('file-loader?name=[name].[ext]!../index.html');
 
