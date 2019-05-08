@@ -1,19 +1,11 @@
-import { html, TemplateResult, render } from "lit-html";
-import { LitElement } from "@polymer/lit-element";
+import { LitElement, html, customElement} from "@polymer/lit-element";
 
+@customElement(<any>"ce-example")
 export class ExampleComponent extends LitElement {
-
-  constructor() {
-    super();
-    
-  }
-
-  render(): TemplateResult {
-    alert("WTF");
+  
+  render(): any {
     return html`
       <h1>Example</h1>
     `;
   }
 }
-
-customElements.define(`ce-example`,ExampleComponent);
