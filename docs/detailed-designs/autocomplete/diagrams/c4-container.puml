@@ -1,0 +1,39 @@
+@startuml
+title C4 container - Product autocomplete in the browser
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+skinparam component {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #FFFFFF
+}
+
+actor "Application user" as user
+rectangle "Browser runtime" #E0F2FE {
+  component "Host application\nVite demo or consumer" as host
+  component "Generic autocomplete primitive\nSearchProvider<T>\nSearchAutocompleteElement<T>" as generic
+  component "Product adapter\nce-auto-complete + result elements" as product
+  component "Fixture provider\n(demo only)" as fixture
+}
+rectangle "Application-owned data source" #D1FADF {
+  component "Remote API or\nlocal product data" as api
+}
+
+user --> host : types and selects
+host --> product : sets ProductSearchProvider
+product --> generic : extends generic lifecycle\nand supplies result rendering
+generic --> fixture : calls search(query, signal)\nwhen demo is configured
+fixture --> api : optional application data access
+api --> fixture : product data
+fixture --> generic : Promise<T[]>
+product --> user : product details and results
+generic --> user : labeled input and status
+@enduml

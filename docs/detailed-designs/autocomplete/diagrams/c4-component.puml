@@ -1,0 +1,47 @@
+@startuml
+title Component view - Product autocomplete
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+skinparam component {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #FFFFFF
+}
+
+actor "Application user" as user
+component "ProductSearchProvider\nSearchProvider<SearchResultItem>" as provider
+
+package "Generic autocomplete primitives" #E0F2FE {
+  component "SearchAutocompleteElement<T>\ninput + request lifecycle" as autocomplete
+  component "ce-form-field\nnative input slot" as field
+}
+
+package "Product adapter and result tree" #FEF3C7 {
+  component "AutoCompleteComponent\nproduct messages + renderer" as product
+  component "ce-search-result-items\nkeyed collection + selection" as items
+  component "ce-search-result-item\nbutton + expansion state" as item
+  component "ce-search-result-item-detail\nproduct fields + image" as detail
+}
+
+user --> field : types
+field --> autocomplete : input event
+autocomplete --> autocomplete : invalidate, clear,\ndebounceTime(200)
+autocomplete --> provider : search(trimmed query, signal)
+provider --> autocomplete : Promise<T[]>
+autocomplete ..> product : calls overridden\nrenderResults(results)
+product --> items : render SearchResultItem[]
+items --> item : render keyed by numeric ID
+item --> items : product-select\n(bubbling + composed ID)
+items --> item : assign active state
+item --> detail : assign item + hidden state
+detail --> user : category, volume,\nprice, tasting note
+product ..|> autocomplete : specializes\nT = SearchResultItem
+@enduml

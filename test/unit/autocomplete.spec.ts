@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals';
-import { AutoCompleteComponent, type ProductSearchProvider } from '../../src/autocomplete/index.js';
+import { AutoCompleteComponent, type ProductSearchProvider } from '../../src/index.js';
 import { product } from '../fixtures/products.js';
 
 function create(provider?: ProductSearchProvider): AutoCompleteComponent {

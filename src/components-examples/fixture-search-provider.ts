@@ -1,4 +1,4 @@
-import type { ProductSearchProvider, SearchResultItem } from '../autocomplete/index.js';
+import type { ProductSearchProvider, SearchResultItem } from '../product-autocomplete/index.js';
 import { products } from './products.js';
 
 export type FixtureScenario = 'normal' | 'empty' | 'error' | 'slow' | 'stale' | 'unsafe';

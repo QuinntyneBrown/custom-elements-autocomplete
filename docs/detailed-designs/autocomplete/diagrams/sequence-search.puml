@@ -1,0 +1,66 @@
+@startuml
+title Sequence - Debounce, cancel, and ignore stale responses
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+
+actor "Application user" as user
+box "Browser - autocomplete library" #E0F2FE
+  participant "Search input" as input
+  participant "SearchAutocompleteElement<T>" as autocomplete
+  participant "RxJS debounceTime(200)" as debounce
+end box
+participant "SearchProvider<T>" as provider
+
+user -> input : type "wine"
+input -> autocomplete : input event
+autocomplete -> autocomplete : increment revision;\nabort current request;\nclear results and status
+autocomplete -> debounce : emit input event
+... 200 ms without another input ...
+debounce -> autocomplete : debounce emits
+autocomplete -> provider : search("wine", signal)
+autocomplete --> user : status: "Searching…"
+
+user -> input : type "beer" before response
+input -> autocomplete : input event
+autocomplete -> autocomplete : increment revision;\nabort "wine" request
+autocomplete -> debounce : emit latest input event
+opt Provider observes abort signal
+  provider --> autocomplete : request rejects or cancels
+  note right of autocomplete
+    The old revision prevents this
+    outcome from changing the UI.
+  end note
+end
+... 200 ms without another input ...
+debounce -> autocomplete : debounce emits
+autocomplete -> provider : search("beer", new signal)
+
+alt current request resolves
+  provider --> autocomplete : T[]
+  autocomplete -> autocomplete : accept only if revision matches\nand element is connected
+  autocomplete --> user : render results; clear status
+else current request is empty
+  provider --> autocomplete : []
+  autocomplete --> user : status: "No products found."
+else current request rejects or throws
+  provider --> autocomplete : rejection / exception
+  autocomplete --> user : status: "Search failed. Please try again."
+end
+
+note over autocomplete,provider
+  A provider may ignore AbortSignal. The revision check still
+  prevents an obsolete resolution or rejection from updating UI.
+end note
+@enduml

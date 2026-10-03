@@ -1,6 +1,7 @@
 # Custom Elements Autocomplete
 
-A TypeScript product search library and browser demo built with native Web Components, Shadow DOM, lit-html, and RxJS.
+A TypeScript autocomplete library with reusable generic search primitives, a product-specific Web
+Component, and a browser demo built with Shadow DOM, lit-html, and RxJS.
 
 The `ce-auto-complete` element searches through a provider supplied by your application. Results display product names and images; selecting a result expands its category, volume, price, and tasting notes. The included demo uses local sample data and requires no API account or credentials.
 
@@ -36,10 +37,12 @@ Use `npm run watch` to start the server without opening a browser.
 
 ## Use the component
 
-Import the library to register its `ce-*` custom elements, then assign a `ProductSearchProvider` to the autocomplete element. This example belongs in `src/dev-app/main.ts` and uses the repository's local fixture provider:
+Import the product entry to register its `ce-*` custom elements, then assign a
+`ProductSearchProvider` to the autocomplete element. This example belongs in
+`src/dev-app/main.ts` and uses the repository's local fixture provider:
 
 ```ts
-import { AutoCompleteComponent } from '../autocomplete/index.js';
+import { AutoCompleteComponent } from '../product-autocomplete/index.js';
 import { createFixtureProvider } from '../components-examples/fixture-search-provider.js';
 
 const autocomplete = document.createElement('ce-auto-complete') as AutoCompleteComponent;
@@ -94,17 +97,19 @@ The [CI workflow](.github/workflows/ci.yml) checks lint, formatting, and types, 
 
 ## Project structure
 
-| Path                                                   | Purpose                                                                |
-| ------------------------------------------------------ | ---------------------------------------------------------------------- |
-| [`src/autocomplete/`](src/autocomplete/)               | Production components, styles, types, and public exports.              |
-| [`src/components-examples/`](src/components-examples/) | Shared examples, fixture providers, sample products, and local assets. |
-| [`src/dev-app/`](src/dev-app/)                         | Interactive development demo.                                          |
-| [`src/e2e-app/`](src/e2e-app/)                         | Controlled application for browser acceptance tests.                   |
-| [`test/unit/`](test/unit/)                             | Jest component and provider tests.                                     |
-| [`test/e2e/`](test/e2e/)                               | Playwright acceptance tests and page objects.                          |
-| [`test/fixtures/`](test/fixtures/)                     | Shared unit test data.                                                 |
-| [`docs/specs/`](docs/specs/)                           | Requirements and acceptance criteria.                                  |
-| [`tools/`](tools/)                                     | Cross-platform test launcher.                                          |
+| Path                                                     | Purpose                                                                |
+| -------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [`src/autocomplete/`](src/autocomplete/)                 | Generic provider and autocomplete lifecycle primitives.                |
+| [`src/product-autocomplete/`](src/product-autocomplete/) | Product result types, rendering components, and product adapter.       |
+| [`src/index.ts`](src/index.ts)                           | Compatibility entry point exporting generic and product APIs.          |
+| [`src/components-examples/`](src/components-examples/)   | Shared examples, fixture providers, sample products, and local assets. |
+| [`src/dev-app/`](src/dev-app/)                           | Interactive development demo.                                          |
+| [`src/e2e-app/`](src/e2e-app/)                           | Controlled application for browser acceptance tests.                   |
+| [`test/unit/`](test/unit/)                               | Jest component and provider tests.                                     |
+| [`test/e2e/`](test/e2e/)                                 | Playwright acceptance tests and page objects.                          |
+| [`test/fixtures/`](test/fixtures/)                       | Shared unit test data.                                                 |
+| [`docs/specs/`](docs/specs/)                             | Requirements and acceptance criteria.                                  |
+| [`tools/`](tools/)                                       | Cross-platform test launcher.                                          |
 
 ## Project status and compatibility
 

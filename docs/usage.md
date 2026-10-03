@@ -4,31 +4,52 @@ This guide describes the current public interface and how to supply product data
 
 ## Import and registration
 
-The source entry point is `src/autocomplete/index.ts`. Importing it registers these elements in the current browser's custom element registry:
+The root source entry point `src/index.ts` is a compatibility barrel that exports both generic
+primitives and product-specific components. Importing the product entry registers the product
+elements in the current browser's custom element registry.
 
-| Element                        | Exported class                    | Purpose                                       |
-| ------------------------------ | --------------------------------- | --------------------------------------------- |
-| `ce-auto-complete`             | `AutoCompleteComponent`           | Search input, request lifecycle, and results. |
-| `ce-form-field`                | `FormFieldComponent`              | Form field container.                         |
-| `ce-header`                    | `HeaderComponent`                 | Header container with slotted content.        |
-| `ce-search-result-items`       | `SearchResultItemsComponent`      | Result collection and selection state.        |
-| `ce-search-result-item`        | `SearchResultItemComponent`       | Result button and expandable details.         |
-| `ce-search-result-item-detail` | `SearchResultItemDetailComponent` | Product image and detail fields.              |
+| Entry point                         | Purpose                                                                                                   |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `src/autocomplete/index.ts`         | Generic `SearchAutocompleteElement<T>`, `SearchProvider<T>`, messages, form-field, and header primitives. |
+| `src/product-autocomplete/index.ts` | Product-specific `ce-auto-complete`, result components, and product types.                                |
+| `src/index.ts`                      | Compatibility entry that re-exports the generic and product APIs.                                         |
+
+The built package exposes these as `custom-elements-autocomplete/autocomplete` and
+`custom-elements-autocomplete/product-autocomplete`; the package root remains a compatibility
+entry exporting both.
+
+The product entry registers these elements:
+
+| Element                        | Exported class                    | Purpose                                                  |
+| ------------------------------ | --------------------------------- | -------------------------------------------------------- |
+| `ce-auto-complete`             | `AutoCompleteComponent`           | Product-configured input, search lifecycle, and results. |
+| `ce-form-field`                | `FormFieldComponent`              | Generic form-field container.                            |
+| `ce-search-result-items`       | `SearchResultItemsComponent`      | Product result collection and selection state.           |
+| `ce-search-result-item`        | `SearchResultItemComponent`       | Product result button and expandable details.            |
+| `ce-search-result-item-detail` | `SearchResultItemDetailComponent` | Product image and detail fields.                         |
+| `ce-header`                    | `HeaderComponent`                 | Shared header wrapper with slotted content.              |
 
 Registration checks whether each name is already defined. Applications should avoid defining unrelated elements under the same names. The components require a browser DOM and are not server-rendering entry points.
 
 Within the repository's Vite applications, use relative source imports with `.js` extensions, as the existing application entry points do. Vite resolves these to the TypeScript modules and handles their inline CSS imports.
 
-`npm run build` produces `dist/autocomplete/autocomplete.js` and TypeScript declarations under `dist/autocomplete/`. The JavaScript bundle retains imports of lit-html and RxJS; configure a consuming application's bundler to resolve those dependencies. It is not a standalone script to load directly without dependency resolution. The project is currently marked `private` and has no configured npm release.
+`npm run build` produces separate generic (`dist/autocomplete/autocomplete.js`) and product
+(`dist/autocomplete/product-autocomplete.js`) entry points, plus the compatibility entry
+(`dist/autocomplete/index.js`). The JavaScript bundles retain imports of lit-html and RxJS; configure
+a consuming application's bundler to resolve those dependencies. They are not standalone scripts to
+load directly without dependency resolution. The project is currently marked `private` and has no
+configured npm release.
 
 ## Implement a provider
 
 The provider contract is:
 
 ```ts
-interface ProductSearchProvider {
-  search(query: string, signal?: AbortSignal): Promise<SearchResultItem[]>;
+interface SearchProvider<T> {
+  search(query: string, signal?: AbortSignal): Promise<T[]>;
 }
+
+type ProductSearchProvider = SearchProvider<SearchResultItem>;
 ```
 
 The following example can replace `src/dev-app/main.ts`. It supplies local data and uses the built-in image fallback:
@@ -38,7 +59,7 @@ import {
   AutoCompleteComponent,
   type ProductSearchProvider,
   type SearchResultItem,
-} from '../autocomplete/index.js';
+} from '../product-autocomplete/index.js';
 
 const products: SearchResultItem[] = [
   {
@@ -66,6 +87,53 @@ document.body.append(autocomplete);
 ```
 
 For a remote provider, forward the signal to `fetch`, check the response status, and validate the returned data before mapping it to `SearchResultItem[]`. Keep privileged API credentials on a server. The library includes no production backend or built-in LCBO API integration.
+
+## Reuse the generic primitive
+
+For another domain, extend `SearchAutocompleteElement<T>` from the generic entry point and supply
+its search-result template. The generic base owns the labeled input, debounce, cancellation, stale
+response guard, status handling, and lifecycle cleanup; the subclass owns only its domain's result
+rendering and any customized messages.
+
+```ts
+import { html, type TemplateResult } from 'lit-html';
+import { SearchAutocompleteElement, type SearchProvider } from '../autocomplete/index.js';
+
+interface Article {
+  slug: string;
+  title: string;
+}
+
+const allArticles: Article[] = [{ slug: 'search-design', title: 'Search design' }];
+
+class ArticleAutocomplete extends SearchAutocompleteElement<Article> {
+  protected override renderResults(results: Article[]): TemplateResult {
+    return html`<ul>
+      ${results.map((article) => html`<li>${article.title}</li>`)}
+    </ul>`;
+  }
+}
+
+customElements.define('ce-article-autocomplete', ArticleAutocomplete);
+
+const articles: SearchProvider<Article> = {
+  async search(query, signal) {
+    signal?.throwIfAborted();
+    return allArticles.filter((article) =>
+      article.title.toLowerCase().includes(query.toLowerCase()),
+    );
+  },
+};
+
+const autocomplete = document.createElement('ce-article-autocomplete') as ArticleAutocomplete;
+autocomplete.searchProvider = articles;
+document.body.append(autocomplete);
+```
+
+The generic entry does not register a result-rendering element or impose a result data shape.
+`SearchAutocompleteElement<T>` is an abstract base class, so a domain-specific subclass must provide
+`renderResults` and register its own custom-element name. Override the `messages` getter to
+customize its search label, placeholder, and status text.
 
 ## Product data
 

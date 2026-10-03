@@ -1,0 +1,108 @@
+@startuml
+title Class structure - Product autocomplete
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam class {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+
+interface "SearchProvider<T>" as SearchProvider {
+  +search(query: string, signal?: AbortSignal): Promise<T[]>
+}
+
+class SearchResultItem {
+  +id: number
+  +name: string
+  +image_thumb_url: string | null
+  +image_url: string | null
+  +price_in_cents: number
+  +primary_category: string
+  +tasting_note: string
+  +volume_in_milliliters: string
+}
+
+abstract class "SearchAutocompleteElement<T>" as SearchAutocompleteElement {
+  -provider?: SearchProvider<T>
+  -subscription?: Subscription
+  -controller?: AbortController
+  -revision: number
+  -results: T[]
+  -state: SearchState
+  +searchProvider: SearchProvider<T> | undefined
+  +connectedCallback(): void
+  +disconnectedCallback(): void
+  -observeInput(): void
+  -invalidate(): void
+  -search(query: string): Promise<void>
+  -update(): void
+  #renderResults(results: T[]): TemplateResult
+  #messages: SearchAutocompleteMessages
+}
+
+class AutoCompleteComponent {
+  #renderResults(results: SearchResultItem[]): TemplateResult
+  #messages: SearchAutocompleteMessages
+}
+
+class SearchAutocompleteMessages {
+  +label: string
+  +placeholder: string
+  +searching: string
+  +empty: string
+  +failed: string
+  +unconfigured: string
+}
+
+class "ProductSearchProvider = SearchProvider<SearchResultItem>" as ProductSearchProvider <<type alias>>
+
+class SearchResultItemsComponent {
+  -items: SearchResultItem[]
+  -selectedId?: number
+  +searchResultItems: SearchResultItem[]
+  +showSearchResultItemDetail(event: Event): void
+}
+
+class SearchResultItemComponent {
+  -item?: SearchResultItem
+  -active: boolean
+  +searchResultItem: SearchResultItem | undefined
+  +isActive: boolean
+  -select(): void
+}
+
+class SearchResultItemDetailComponent {
+  -item?: SearchResultItem
+  +searchResultItem: SearchResultItem | undefined
+}
+
+class FormFieldComponent
+class HeaderComponent
+class AbortController
+class Subscription
+
+SearchAutocompleteElement --> SearchProvider : delegates search
+AutoCompleteComponent --|> SearchAutocompleteElement : T = SearchResultItem
+AutoCompleteComponent --> ProductSearchProvider : typed product provider
+ProductSearchProvider ..> SearchResultItem
+AutoCompleteComponent *-- SearchResultItemsComponent : renders
+SearchResultItemsComponent "1" o-- "*" SearchResultItemComponent : keyed by id
+SearchResultItemComponent *-- SearchResultItemDetailComponent : renders
+SearchResultItemComponent --> SearchResultItem : selects id
+SearchAutocompleteElement --> AbortController : request cancellation
+SearchAutocompleteElement --> Subscription : input cleanup
+SearchAutocompleteElement ..> SearchAutocompleteMessages : uses generic copy
+SearchResultItemsComponent ..> SearchResultItem : collection type
+
+note bottom of FormFieldComponent
+  Shared slot wrapper around the native input
+end note
+note bottom of HeaderComponent
+  Exported shared element;
+  not part of this component tree
+end note
+@enduml

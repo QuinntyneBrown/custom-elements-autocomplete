@@ -1,0 +1,27 @@
+@startuml
+title C4 context - Product autocomplete
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+
+actor "Application user" as user
+rectangle "Host web application" as host #E0F2FE
+rectangle "Product autocomplete library\n(ce-auto-complete)" as library #DBEAFE
+rectangle "Application product source\n(ProductSearchProvider)" as provider #FEF3C7
+rectangle "Application API or local data" as source #D1FADF
+
+user --> host : enters a product query
+host --> library : configures provider\nand hosts custom element
+library --> provider : search(trimmed query,\nAbortSignal)
+provider --> source : reads products\n(application-owned)
+source --> provider : SearchResultItem[]
+provider --> library : Promise result
+library --> user : status and expandable results
+@enduml

@@ -1,0 +1,52 @@
+@startuml
+title Sequence - Select a product and render its details
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam defaultFontName Arial
+skinparam ArrowColor #344054
+skinparam rectangle {
+  BorderColor #344054
+  FontColor #101828
+}
+skinparam package {
+  BorderColor #667085
+  FontColor #101828
+  BackgroundColor #F9FAFB
+}
+
+actor "Application user" as user
+box "Browser - autocomplete result tree" #E0F2FE
+  participant "ce-search-result-item\nbutton" as item
+  participant "ce-search-result-items" as items
+  participant "lit-html repeat" as repeat
+  participant "ce-search-result-item-detail" as detail
+end box
+
+user -> item : activate product button
+item -> item : dispatch product-select\n(detail = numeric product ID,\nbubbles + composed)
+item -> items : product-select event
+items -> items : set selectedId
+items -> repeat : render items keyed by item.id
+repeat -> item : assign searchResultItem\nand isActive
+item -> detail : assign product and hidden state
+detail --> user : render category, name,\nvolume, price, tasting note
+
+alt User selects a different product
+  user -> item : activate another result
+  item -> items : product-select(new ID)
+  items -> repeat : update active state by ID
+  repeat --> user : old details hidden;\nnew details visible
+else User selects the same product again
+  user -> item : activate the expanded result
+  item -> items : product-select(same ID)
+  items -> repeat : active state remains true
+  repeat --> user : details remain expanded
+end
+
+note over items,repeat
+  If a later result array no longer contains selectedId,
+  the collection clears its selection. Same-ID data updates
+  preserve the keyed result element and refresh its content.
+end note
+@enduml

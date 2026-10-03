@@ -1,7 +1,8 @@
-export { AutoCompleteComponent } from './auto-complete.component.js';
+export { SearchAutocompleteElement } from './search-autocomplete.element.js';
+export {
+  defaultSearchAutocompleteMessages,
+  type SearchAutocompleteMessages,
+} from './search-autocomplete.element.js';
 export { FormFieldComponent } from './form-field.component.js';
 export { HeaderComponent } from './header.component.js';
-export { SearchResultItemsComponent } from './search-result-items.component.js';
-export { SearchResultItemComponent } from './search-result-item.component.js';
-export { SearchResultItemDetailComponent } from './search-result-item-detail.component.js';
-export type { ProductSearchProvider, SearchResultItem } from './types.js';
+export type { SearchProvider } from './types.js';

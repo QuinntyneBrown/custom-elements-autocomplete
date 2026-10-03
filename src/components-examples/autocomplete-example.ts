@@ -1,4 +1,7 @@
-import { AutoCompleteComponent, type ProductSearchProvider } from '../autocomplete/index.js';
+import {
+  AutoCompleteComponent,
+  type ProductSearchProvider,
+} from '../product-autocomplete/index.js';
 
 export function createAutocompleteExample(
   provider?: ProductSearchProvider,

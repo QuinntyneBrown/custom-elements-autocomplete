@@ -9,7 +9,15 @@
   "exports": {
     ".": {
       "types": "./dist/autocomplete/index.d.ts",
+      "import": "./dist/autocomplete/index.js"
+    },
+    "./autocomplete": {
+      "types": "./dist/autocomplete/autocomplete/index.d.ts",
       "import": "./dist/autocomplete/autocomplete.js"
+    },
+    "./product-autocomplete": {
+      "types": "./dist/autocomplete/product-autocomplete/index.d.ts",
+      "import": "./dist/autocomplete/product-autocomplete.js"
     }
   },
   "scripts": {

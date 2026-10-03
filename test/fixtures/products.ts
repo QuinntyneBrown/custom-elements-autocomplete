@@ -1,4 +1,4 @@
-import type { SearchResultItem } from '../../src/autocomplete/types.js';
+import type { SearchResultItem } from '../../src/product-autocomplete/types.js';
 
 export const product: SearchResultItem = {
   id: 1,

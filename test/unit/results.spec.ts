@@ -3,8 +3,8 @@ import {
   SearchResultItemsComponent,
   SearchResultItemComponent,
   SearchResultItemDetailComponent,
-} from '../../src/autocomplete/index.js';
-import { fallbackImage } from '../../src/autocomplete/image.js';
+} from '../../src/index.js';
+import { fallbackImage } from '../../src/product-autocomplete/image.js';
 import { product } from '../fixtures/products.js';
 
 afterEach(() => document.body.replaceChildren());

@@ -1,5 +1,5 @@
 import '../components-examples/example.css';
-import '../autocomplete/index.js';
+import '../product-autocomplete/index.js';
 import { createAutocompleteExample } from '../components-examples/autocomplete-example.js';
 import {
   createFixtureProvider,

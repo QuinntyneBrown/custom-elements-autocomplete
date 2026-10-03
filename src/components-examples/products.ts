@@ -1,4 +1,4 @@
-import type { SearchResultItem } from '../autocomplete/index.js';
+import type { SearchResultItem } from '../product-autocomplete/index.js';
 
 const image = new URL('./assets/product.svg', import.meta.url).href;
 export const products: SearchResultItem[] = [

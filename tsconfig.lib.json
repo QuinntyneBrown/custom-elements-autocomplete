@@ -3,9 +3,9 @@
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
-    "rootDir": "src/autocomplete",
+    "rootDir": "src",
     "outDir": "dist/autocomplete"
   },
-  "include": ["src/autocomplete"],
+  "include": ["src/index.ts", "src/autocomplete", "src/product-autocomplete"],
   "exclude": ["test"]
 }
