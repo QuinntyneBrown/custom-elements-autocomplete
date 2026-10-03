@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+::slotted(input) {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #7b8995;
+  border-radius: 0.5rem;
+  background: white;
+  color: #172b3a;
+  font: inherit;
+}
+::slotted(input:focus-visible) {
+  outline: 3px solid #176d91;
+  outline-offset: 3px;
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Autocomplete acceptance harness</title>
+  </head>
+  <body>
+    <main>
+      <h1>Autocomplete acceptance harness</h1>
+      <div class="controls">
+        <button id="disconnect" type="button">Disconnect first</button>
+        <button id="reconnect" type="button">Reconnect first</button>
+      </div>
+      <output data-testid="requests" aria-label="First instance requests">[]</output>
+      <div class="examples">
+        <section id="primary"><h2>First instance</h2></section>
+        <section id="secondary"><h2>Second instance</h2></section>
+      </div>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

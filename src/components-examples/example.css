@@ -1,0 +1,85 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #172b3a;
+  background: #f3f6f8;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+main {
+  width: min(100% - 2rem, 960px);
+  margin: 3rem auto;
+}
+h1 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1.2;
+  margin: 0.5rem 0 1rem;
+}
+h2 {
+  font-size: 1.2rem;
+}
+p {
+  line-height: 1.6;
+}
+.eyebrow {
+  color: #28536a;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.examples {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+section {
+  min-width: 0;
+  border: 1px solid #d9e3ea;
+  border-radius: 0.8rem;
+  background: white;
+  padding: 1.5rem;
+}
+button,
+select {
+  font: inherit;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.4rem;
+  border: 1px solid #7b8995;
+  background: white;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+button:focus-visible,
+select:focus-visible {
+  outline: 3px solid #176d91;
+  outline-offset: 3px;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+output {
+  display: block;
+  margin-top: 1rem;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 767px) {
+  main {
+    margin: 1.5rem auto;
+  }
+  .examples {
+    grid-template-columns: 1fr;
+  }
+  section {
+    padding: 1rem;
+  }
+}

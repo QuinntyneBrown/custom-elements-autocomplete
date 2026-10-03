@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src/autocomplete",
+    "outDir": "dist/autocomplete"
+  },
+  "include": ["src/autocomplete"],
+  "exclude": ["test"]
+}

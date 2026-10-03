@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  color: #172b3a;
+  font-family: system-ui, sans-serif;
+  min-width: 0;
+}
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+[role='status'] {
+  min-height: 1.5rem;
+  font-size: 0.9rem;
+  color: #3c5668;
+}
