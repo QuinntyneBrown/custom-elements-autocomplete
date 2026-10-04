@@ -1,5 +1,5 @@
 import { html, render } from 'lit-html';
-import styles from './form-field.component.css?inline';
+import styles from './form-field.component.styles.js';
 
 export class FormFieldComponent extends HTMLElement {
   connectedCallback(): void {

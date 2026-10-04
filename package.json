@@ -7,6 +7,10 @@
     "node": ">=22.18.0"
   },
   "exports": {
+    "./theming": {
+      "types": "./dist/autocomplete/theming/index.d.ts",
+      "import": "./dist/autocomplete/theming.js"
+    },
     ".": {
       "types": "./dist/autocomplete/index.d.ts",
       "import": "./dist/autocomplete/index.js"

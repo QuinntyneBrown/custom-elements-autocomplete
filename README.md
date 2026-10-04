@@ -128,3 +128,9 @@ Contributions to code, tests, documentation, and accessibility are welcome. Read
 ## License
 
 This project is licensed under the [MIT License](LICENSE). Dependencies remain subject to their respective licenses.
+
+## Design tokens and themes
+
+The library exports typed tokens, light/dark presets, and scoped theme helpers. Both examples include
+page and instance theme selectors. See the [integration guide](docs/usage.md#design-tokens-and-themes)
+for custom themes and CSS overrides.

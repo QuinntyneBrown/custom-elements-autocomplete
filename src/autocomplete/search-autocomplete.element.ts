@@ -2,7 +2,7 @@ import { html, render, type TemplateResult } from 'lit-html';
 import { fromEvent, debounceTime, tap, type Subscription } from 'rxjs';
 import './form-field.component.js';
 import type { SearchProvider } from './types.js';
-import styles from './search-autocomplete.element.css?inline';
+import styles from './search-autocomplete.element.styles.js';
 
 export interface SearchAutocompleteMessages {
   label: string;

@@ -6,6 +6,6 @@
     "rootDir": "src",
     "outDir": "dist/autocomplete"
   },
-  "include": ["src/index.ts", "src/autocomplete", "src/product-autocomplete"],
+  "include": ["src/index.ts", "src/autocomplete", "src/product-autocomplete", "src/theming"],
   "exclude": ["test"]
 }

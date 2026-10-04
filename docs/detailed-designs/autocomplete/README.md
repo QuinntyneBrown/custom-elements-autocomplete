@@ -44,7 +44,10 @@ barrel. The library build exposes the generic and product entries separately as 
 and `./product-autocomplete`, in addition to the root entry. Importing an entry evaluates its
 component modules, which register each `ce-*` name only if that name is not already present in the
 current `customElements` registry. Components use open Shadow DOM and lit-html rendering; styles
-are bundled from their component CSS.
+are bundled from token-based TypeScript stylesheet modules. A separate `./theming` entry exports
+typed CSS variable references, immutable light/dark presets, and scoped apply/reset helpers without
+registering components. Variables inherit through nested Shadow DOM, with centralized light
+fallbacks; changing a theme does not render components or affect search subscriptions.
 
 ### Reuse in another domain
 

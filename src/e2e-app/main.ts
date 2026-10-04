@@ -1,4 +1,5 @@
 import '../components-examples/example.css';
+import { addThemeSelector } from '../components-examples/theme-selector.js';
 import { createAutocompleteExample } from '../components-examples/autocomplete-example.js';
 import {
   createFixtureProvider,
@@ -24,6 +25,9 @@ const provider =
 const first = createAutocompleteExample(provider, 'first');
 const primary = document.querySelector('#primary')!;
 primary.append(first);
+const controls = document.querySelector<HTMLElement>('.controls')!;
+addThemeSelector(controls);
+addThemeSelector(controls, first, true);
 document
   .querySelector('#secondary')!
   .append(createAutocompleteExample(createFixtureProvider(), 'second'));

@@ -31,7 +31,65 @@ The product entry registers these elements:
 
 Registration checks whether each name is already defined. Applications should avoid defining unrelated elements under the same names. The components require a browser DOM and are not server-rendering entry points.
 
-Within the repository's Vite applications, use relative source imports with `.js` extensions, as the existing application entry points do. Vite resolves these to the TypeScript modules and handles their inline CSS imports.
+Within the repository's Vite applications, use relative source imports with `.js` extensions, as the existing application entry points do. Vite resolves these to the TypeScript modules.
+
+## Design tokens and themes
+
+Import the theming API from `custom-elements-autocomplete/theming` or the package root. The dedicated
+theming entry does not register custom elements and can be imported without a browser DOM.
+
+```ts
+import {
+  applyTheme,
+  clearTheme,
+  createTheme,
+  darkTheme,
+  lightTheme,
+  tokens,
+  type Theme,
+  type PartialTheme,
+} from 'custom-elements-autocomplete/theming';
+
+// Page-wide theme, inherited through nested Shadow DOM.
+applyTheme(document.documentElement, darkTheme);
+
+// A container scopes its theme to descendants.
+applyTheme(document.querySelector<HTMLElement>('#products')!, lightTheme);
+
+// An instance can override its ancestor; reset restores inheritance.
+const autocomplete = document.querySelector<HTMLElement>('ce-auto-complete')!;
+const overrides: PartialTheme = { colorBrandStroke1: '#663399' };
+const custom: Theme = createTheme(overrides); // Optional second argument: a base theme.
+applyTheme(autocomplete, custom);
+clearTheme(autocomplete);
+
+// Token references can also be used in a consumer's stylesheet strings.
+const styles = `button:focus-visible { outline: 3px solid ${tokens.colorBrandStroke1}; }`;
+```
+
+`Theme` includes semantic colors, native `colorScheme`, fonts, spacing, border radii, and stroke
+widths. All values are strings including CSS units. `lightTheme`, `darkTheme`, custom themes, and
+`tokens` are immutable. `createTheme` fills unspecified values from its base without changing inputs.
+
+Each token references a prefixed custom property, such as
+`var(--ce-colorBrandStroke1, #176d91)`. Components use light fallbacks when no theme is applied,
+without modifying global styles. Raw CSS overrides work on any ancestor or component host:
+
+```css
+.branded-products {
+  --ce-colorBrandStroke1: #663399;
+  --ce-borderRadiusMedium: 1rem;
+}
+```
+
+`applyTheme` replaces all supported inline token values on its target. `clearTheme` removes all
+supported inline token properties, including manually assigned ones, while preserving unrelated
+styles and custom properties. A reset restores styles from the CSS cascade rather than storing a
+previous inline theme. Page and instance selectors in the examples demonstrate light, dark, and
+custom purple themes. Themes do not follow system preferences or persist across page loads.
+
+Theme changes use the CSS cascade and preserve focus, query, results, expanded selection, requests,
+and Shadow DOM identity. Theme application does not trigger rendering or create subscriptions.
 
 `npm run build` produces separate generic (`dist/autocomplete/autocomplete.js`) and product
 (`dist/autocomplete/product-autocomplete.js`) entry points, plus the compatibility entry

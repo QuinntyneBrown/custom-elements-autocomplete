@@ -1,7 +1,8 @@
 :root {
-  font-family: system-ui, sans-serif;
-  color: #172b3a;
-  background: #f3f6f8;
+  color-scheme: var(--ce-colorScheme, light);
+  font-family: var(--ce-fontFamilyBase, system-ui, sans-serif);
+  color: var(--ce-colorNeutralForeground1, #172b3a);
+  background: var(--ce-colorNeutralBackground2, #f3f6f8);
 }
 * {
   box-sizing: border-box;
@@ -25,7 +26,7 @@ p {
   line-height: 1.6;
 }
 .eyebrow {
-  color: #28536a;
+  color: var(--ce-colorBrandForeground1, #28536a);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.8rem;
@@ -39,9 +40,9 @@ p {
 }
 section {
   min-width: 0;
-  border: 1px solid #d9e3ea;
+  border: 1px solid var(--ce-colorNeutralStroke3, #d9e3ea);
   border-radius: 0.8rem;
-  background: white;
+  background: var(--ce-colorNeutralBackground1, #ffffff);
   padding: 1.5rem;
 }
 button,
@@ -49,8 +50,8 @@ select {
   font: inherit;
   padding: 0.6rem 0.8rem;
   border-radius: 0.4rem;
-  border: 1px solid #7b8995;
-  background: white;
+  border: 1px solid var(--ce-colorNeutralStrokeAccessible, #7b8995);
+  background: var(--ce-colorNeutralBackground1, #ffffff);
   color: inherit;
 }
 button {
@@ -58,7 +59,7 @@ button {
 }
 button:focus-visible,
 select:focus-visible {
-  outline: 3px solid #176d91;
+  outline: 3px solid var(--ce-colorBrandStroke1, #176d91);
   outline-offset: 3px;
 }
 .controls {

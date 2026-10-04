@@ -1,7 +1,7 @@
 import { html, render } from 'lit-html';
 import type { SearchResultItem } from './types.js';
 import { fallbackImage, useFallback } from './image.js';
-import styles from './search-result-item-detail.component.css?inline';
+import styles from './search-result-item-detail.component.styles.js';
 
 export class SearchResultItemDetailComponent extends HTMLElement {
   private item?: SearchResultItem;

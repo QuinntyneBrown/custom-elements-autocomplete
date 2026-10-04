@@ -9,6 +9,7 @@ export default defineConfig({
         index: 'src/index.ts',
         autocomplete: 'src/autocomplete/index.ts',
         'product-autocomplete': 'src/product-autocomplete/index.ts',
+        theming: 'src/theming/index.ts',
       },
       formats: ['es'],
       fileName: '[name]',
