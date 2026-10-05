@@ -18,7 +18,8 @@ export class SearchResultItemsComponent extends HTMLElement {
     if (!this.shadowRoot) this.attachShadow({ mode: 'open' });
     this.update();
   }
-  public showSearchResultItemDetail = (event: Event): void => {
+  /** Expand the result identified by a product-select event. */
+  public showSearchResultItemDetail: (event: Event) => void = (event) => {
     this.selectedId = (event as CustomEvent<number>).detail;
     this.update();
   };

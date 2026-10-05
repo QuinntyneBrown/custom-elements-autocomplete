@@ -1,6 +1,10 @@
 import { html, render } from 'lit-html';
 import styles from './form-field.component.styles.js';
 
+/**
+ * A styled native input wrapper.
+ * @slot - Native input content.
+ */
 export class FormFieldComponent extends HTMLElement {
   connectedCallback(): void {
     const root = this.shadowRoot ?? this.attachShadow({ mode: 'open' });

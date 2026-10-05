@@ -1,16 +1,15 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './test/e2e',
-  fullyParallel: true,
+  testDir: './test/storybook',
+  workers: 2,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI
-    ? [['github'], ['html', { open: 'never' }]]
-    : [['list'], ['html', { open: 'never' }]],
+  outputDir: 'test-results-storybook',
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report-storybook', open: 'never' }]],
   use: {
     channel: 'chromium',
-    baseURL: 'http://127.0.0.1:4200',
+    baseURL: 'http://127.0.0.1:6006',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
@@ -19,8 +18,8 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['Pixel 7'], defaultBrowserType: 'chromium' } },
   ],
   webServer: {
-    command: 'npm run watch',
-    url: 'http://127.0.0.1:4200/src/e2e-app/',
+    command: 'npm run preview-storybook',
+    url: 'http://127.0.0.1:6006',
     reuseExistingServer: false,
     timeout: 60_000,
   },

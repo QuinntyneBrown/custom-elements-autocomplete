@@ -4,6 +4,10 @@ import type { SearchResultItem } from './types.js';
 import { fallbackImage, useFallback } from './image.js';
 import styles from './search-result-item.component.styles.js';
 
+/**
+ * A selectable product with expandable details.
+ * @fires {CustomEvent<number>} product-select - Selected product identifier; bubbles across Shadow DOM.
+ */
 export class SearchResultItemComponent extends HTMLElement {
   private item?: SearchResultItem;
   private active = false;

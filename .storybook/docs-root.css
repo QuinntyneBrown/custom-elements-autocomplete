@@ -1,0 +1,49 @@
+#storybook-docs .sbdocs-content {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  max-width: 1200px;
+  min-width: 0;
+}
+#storybook-docs .sbdocs-title {
+  font-family: inherit;
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.35;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+#storybook-docs .sbdocs-wrapper {
+  background: white;
+}
+#storybook-docs .sbdocs h2 {
+  border-top: 1px solid #ebebeb;
+  border-bottom: none;
+  margin-top: 48px;
+  padding-top: 32px;
+}
+.component-preview {
+  box-sizing: border-box;
+  padding: 24px;
+  color: var(--ce-colorNeutralForeground1);
+  background: var(--ce-colorNeutralBackground2);
+  color-scheme: var(--ce-colorScheme);
+  font-family: var(--ce-fontFamilyBase);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.component-preview ce-auto-complete {
+  max-width: 640px;
+}
+.component-preview ce-story-preview {
+  display: block;
+}
+#storybook-docs pre {
+  max-width: 100%;
+  overflow: auto;
+}
+@media (max-width: 575px) {
+  .component-preview {
+    padding: 16px;
+  }
+  #storybook-docs .sbdocs-wrapper {
+    padding: 20px 12px;
+  }
+}

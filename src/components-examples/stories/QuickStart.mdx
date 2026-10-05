@@ -1,0 +1,15 @@
+import { Meta, Source } from '@storybook/addon-docs/blocks';
+import { providerSource } from './helpers.js';
+
+<Meta title="Concepts/Developer/Quick Start" />
+
+# Quick Start
+
+Import the product entry to register the elements. Assign a provider before connecting the
+autocomplete. A provider receives the trimmed query and an optional abort signal, and returns
+a promise of products. Product strings are displayed as text.
+
+<Source code={providerSource} language="typescript" />
+
+Run `npm start` for documentation, or `npm run start:demo` for the fixture scenario playground.
+An unconfigured autocomplete disables its input and displays provider setup guidance.

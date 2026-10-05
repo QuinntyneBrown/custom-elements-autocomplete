@@ -22,10 +22,11 @@
     "./product-autocomplete": {
       "types": "./dist/autocomplete/product-autocomplete/index.d.ts",
       "import": "./dist/autocomplete/product-autocomplete.js"
-    }
+    },
+    "./custom-elements.json": "./custom-elements.json"
   },
   "scripts": {
-    "start": "vite --open /src/dev-app/",
+    "start": "npm run start-storybook",
     "watch": "vite",
     "build": "vite build && tsc -p tsconfig.lib.json",
     "build:demo": "vite build --config vite.demo.config.ts",
@@ -38,16 +39,33 @@
     "test": "node tools/run-jest.mjs",
     "test:watch": "node tools/run-jest.mjs --watch",
     "test:coverage": "node tools/run-jest.mjs --coverage",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "start:demo": "vite --open /src/dev-app/",
+    "analyze": "cem analyze",
+    "start-storybook": "npm run analyze && storybook dev --host 127.0.0.1 -p 6006 --docs",
+    "build-storybook": "npm run analyze && storybook build -o dist/storybook --docs",
+    "preview-storybook": "vite preview --config vite.storybook.config.ts --host 127.0.0.1 --port 6006 --strictPort",
+    "test:storybook": "playwright test --config playwright.storybook.config.ts",
+    "pretypecheck": "npm run analyze",
+    "prebuild": "npm run analyze",
+    "pretest": "npm run analyze"
   },
   "private": true,
   "devDependencies": {
     "@babel/core": "7.29.7",
     "@babel/preset-typescript": "7.29.7",
+    "@custom-elements-manifest/analyzer": "0.10.10",
     "@eslint/js": "10.0.1",
     "@jest/globals": "30.5.2",
     "@playwright/test": "1.63.0",
+    "@storybook/addon-docs": "10.6.1",
+    "@storybook/html": "10.6.1",
+    "@storybook/html-vite": "10.6.1",
     "@types/node": "22.20.5",
+    "@wc-toolkit/cem-inheritance": "1.2.2",
+    "@wc-toolkit/cem-validator": "1.0.3",
+    "@wc-toolkit/module-path-resolver": "1.0.0",
+    "@wc-toolkit/type-parser": "1.0.3",
     "babel-jest": "30.5.2",
     "eslint": "10.12.0",
     "eslint-config-prettier": "10.1.8",
@@ -55,6 +73,7 @@
     "jest": "30.5.2",
     "jest-environment-jsdom": "30.5.2",
     "prettier": "3.9.9",
+    "storybook": "10.6.1",
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.0",
     "vite": "8.3.2"
@@ -62,5 +81,6 @@
   "dependencies": {
     "lit-html": "3.3.3",
     "rxjs": "7.8.2"
-  }
+  },
+  "customElements": "./custom-elements.json"
 }

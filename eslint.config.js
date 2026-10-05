@@ -11,11 +11,14 @@ export default defineConfig(
     'coverage/',
     'playwright-report/',
     'test-results/',
+    'test-results-storybook/',
+    'playwright-report-storybook/',
     'blob-report/',
     'playwright/.cache/',
     '.vite/',
     '.cache/',
     'package-lock.json',
+    'custom-elements.json',
   ]),
   {
     files: ['**/*.{js,mjs,ts}'],
@@ -26,7 +29,7 @@ export default defineConfig(
     extends: [tseslint.configs.recommended],
   },
   {
-    files: ['src/**/*.ts', 'test/**/*.ts'],
+    files: ['src/**/*.ts', 'test/**/*.ts', '.storybook/**/*.ts'],
     languageOptions: { globals: globals.browser },
   },
   {

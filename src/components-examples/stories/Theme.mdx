@@ -1,0 +1,48 @@
+import { Meta, Source } from '@storybook/addon-docs/blocks';
+import { lightTheme, darkTheme } from '../../theming/index.js';
+
+<Meta title="Theme/Tokens and Presets" />
+
+# Tokens and Presets
+
+Components consume CSS custom properties through typed `tokens`. Each token has a light
+fallback. Immutable `lightTheme` and `darkTheme` presets share the same token contract.
+Use the toolbar to preview Light, Dark, and Custom Purple with LTR or RTL direction.
+
+<table>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Light</th>
+      <th>Dark</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.entries(lightTheme).map(([name, value]) => (
+      <tr key={name}>
+        <td>{`--ce-${name}`}</td>
+        <td>{value}</td>
+        <td>{darkTheme[name]}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+## Scoped overrides
+
+Apply a theme to an ancestor, a component host, or an independent subtree. Tokens inherit
+through Shadow DOM. Clearing a theme removes only managed token declarations. Changes
+preserve the query, focus, active request, results, and expanded selection.
+
+<Source
+  language="typescript"
+  code={`import 'custom-elements-autocomplete/product-autocomplete';
+import { applyTheme, clearTheme, createTheme, darkTheme } from 'custom-elements-autocomplete/theming';
+const scope = document.createElement('section');
+const autocomplete = document.createElement('ce-auto-complete');
+scope.append(autocomplete);
+document.body.append(scope);
+applyTheme(scope, darkTheme);
+applyTheme(autocomplete, createTheme({ colorBrandStroke1: '#663399' }));
+clearTheme(autocomplete);`}
+/>

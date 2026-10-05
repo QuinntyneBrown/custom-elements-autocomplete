@@ -22,6 +22,8 @@ npx playwright install chromium
 npm start
 ```
 
+`npm start` runs docs-first Storybook on port 6006. Use `npm run start:demo` for the interactive demo.
+
 On Linux, Playwright may also require system dependencies. The CI workflow installs them with `npx playwright install --with-deps chromium`.
 
 ## Development conventions
@@ -48,10 +50,12 @@ npm run typecheck
 npm test -- --runInBand
 npm run build
 npm run build:demo
+npm run build-storybook
 npm run e2e
+npm run test:storybook
 ```
 
-Stop the development server before running browser tests; Playwright owns port 4200 during its run. Use `npx playwright show-report` to inspect the HTML report. Test traces and screenshots are retained on failure.
+Stop the development server before running browser tests; Playwright owns port 4200 for demo tests and port 6006 for static Storybook tests. Use `npx playwright show-report` to inspect the HTML report. Test traces and screenshots are retained on failure.
 
 Add or update tests for behavior changes. Jest covers component and provider logic; Playwright covers browser interaction, rendered styles, and responsive behavior. Review keyboard interaction and focus behavior for user interface changes.
 

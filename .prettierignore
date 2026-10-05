@@ -8,3 +8,8 @@ playwright/.cache/
 .vite/
 .cache/
 package-lock.json
+
+# Generated component API manifest
+/custom-elements.json
+/test-results-storybook/
+/playwright-report-storybook/

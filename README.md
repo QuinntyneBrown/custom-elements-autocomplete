@@ -22,7 +22,7 @@ The `ce-auto-complete` element searches through a provider supplied by your appl
 - npm, included with Node.js.
 - Git to clone the repository.
 
-### Run the demo
+### Run Storybook
 
 ```sh
 git clone https://github.com/QuinntyneBrown/custom-elements-autocomplete.git
@@ -31,7 +31,7 @@ npm ci
 npm start
 ```
 
-The development server opens the demo at <http://127.0.0.1:4200/src/dev-app/>. Search for `wine` or `beer`, select a result, and use the scenario selector to explore empty results, failures, and delayed responses. The second example maintains its own state. The root URL serves the same demo.
+Storybook opens docs-first at <http://127.0.0.1:6006/>. It follows the Fluent UI Web Components documentation setup, using Storybook 10 for Vite 8 compatibility. Run `npm run start:demo` for the interactive demo at <http://127.0.0.1:4200/src/dev-app/>. Search for `wine` or `beer`, select a result, and use the scenario selector to explore empty results, failures, and delayed responses. The second example maintains its own state. The root URL serves the same demo.
 
 Use `npm run watch` to start the server without opening a browser.
 
@@ -71,18 +71,22 @@ The [Prettier configuration](.prettierrc.json) uses two-space indentation, singl
 
 ## Build and test
 
-| Command                 | Description                                                     |
-| ----------------------- | --------------------------------------------------------------- |
-| `npm start`             | Start Vite and open the development demo.                       |
-| `npm run watch`         | Start Vite without opening a browser.                           |
-| `npm run typecheck`     | Check source, tests, and TypeScript configuration.              |
-| `npm run build`         | Build the library and declarations in `dist/autocomplete/`.     |
-| `npm run build:demo`    | Build the standalone demo in `dist/demo/`.                      |
-| `npm run preview:demo`  | Serve the demo after building it.                               |
-| `npm test`              | Run the Jest unit tests.                                        |
-| `npm run test:watch`    | Run unit tests in watch mode.                                   |
-| `npm run test:coverage` | Write unit test coverage to `coverage/`.                        |
-| `npm run e2e`           | Run Playwright tests with desktop and mobile Chromium projects. |
+| Command                   | Description                                                     |
+| ------------------------- | --------------------------------------------------------------- |
+| `npm start`               | Start docs-first Storybook on port 6006.                        |
+| `npm run start:demo`      | Start Vite and open the development demo.                       |
+| `npm run analyze`         | Generate the public custom-elements manifest.                   |
+| `npm run build-storybook` | Build standalone documentation in dist/storybook.               |
+| `npm run test:storybook`  | Test the static Storybook in desktop and mobile Chromium.       |
+| `npm run watch`           | Start Vite without opening a browser.                           |
+| `npm run typecheck`       | Check source, tests, and TypeScript configuration.              |
+| `npm run build`           | Build the library and declarations in `dist/autocomplete/`.     |
+| `npm run build:demo`      | Build the standalone demo in `dist/demo/`.                      |
+| `npm run preview:demo`    | Serve the demo after building it.                               |
+| `npm test`                | Run the Jest unit tests.                                        |
+| `npm run test:watch`      | Run unit tests in watch mode.                                   |
+| `npm run test:coverage`   | Write unit test coverage to `coverage/`.                        |
+| `npm run e2e`             | Run Playwright tests with desktop and mobile Chromium projects. |
 
 Install the browser used by the acceptance tests before running them:
 
@@ -134,3 +138,9 @@ This project is licensed under the [MIT License](LICENSE). Dependencies remain s
 The library exports typed tokens, light/dark presets, and scoped theme helpers. Both examples include
 page and instance theme selectors. See the [integration guide](docs/usage.md#design-tokens-and-themes)
 for custom themes and CSS overrides.
+
+## Storybook
+
+Run `npm run analyze` to generate the public custom-elements manifest. `npm start` regenerates it before starting Storybook. Use `npm run build-storybook` to build `dist/storybook`, `npm run preview-storybook` to serve that build, and `npm run test:storybook` to verify it in Chromium. The generated manifest is exported as `custom-elements-autocomplete/custom-elements.json`.
+
+Stories live in `src/components-examples/stories/`; `.storybook/api.ts` derives API controls from the manifest. Theme and direction toolbar settings apply to individual previews. The documentation shell remains light. Storybook configuration, stories, and fixtures stay outside library builds.

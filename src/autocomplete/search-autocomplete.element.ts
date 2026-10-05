@@ -32,6 +32,7 @@ export abstract class SearchAutocompleteElement<T> extends HTMLElement {
   private results: T[] = [];
   private state: SearchState = 'idle';
 
+  /** Injected search implementation receiving a trimmed query and cancellation signal. */
   get searchProvider(): SearchProvider<T> | undefined {
     return this.provider;
   }

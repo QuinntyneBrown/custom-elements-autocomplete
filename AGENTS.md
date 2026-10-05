@@ -2,7 +2,7 @@
 
 This project is a TypeScript product autocomplete library and browser demo built with native Web Components, open Shadow DOM, lit-html, and RxJS. An injected search provider supplies products after a 200 ms input debounce. Selecting a result expands its category, volume, price, and tasting notes. Demos use local fixtures without external API credentials.
 
-The Tessera-inspired layout separates production code in `src/autocomplete/`, shared examples in `src/components-examples/`, and entry points in `src/dev-app/` and `src/e2e-app/`. Vite builds the library and standalone demo; `npm start` opens the interactive demo.
+The Tessera-inspired layout separates production code in `src/autocomplete/`, shared examples in `src/components-examples/`, and entry points in `src/dev-app/` and `src/e2e-app/`. Vite builds the library and standalone demo; `npm start` opens docs-first Storybook on port 6006; `npm run start:demo` opens the interactive demo.
 
 ## Working conventions
 
@@ -12,4 +12,4 @@ The Tessera-inspired layout separates production code in `src/autocomplete/`, sh
 - Add Jest tests under `test/unit/`. Keep Playwright locators and interactions in `test/e2e/pages/`; use controlled time and local providers.
 - Run `npm run format` for Prettier formatting and `npm run lint:fix` for available ESLint fixes. Use two-space indentation, single quotes, semicolons, trailing commas, a 100-character print width, and LF line endings. Keep generated artifacts and the npm lockfile excluded from formatting.
 - Validate lint and formatting with `npm run lint` and `npm run format:check`; both run in CI. ESLint uses recommended JavaScript and TypeScript rules without type-aware analysis.
-- Validate changes with `npm run typecheck`, `npm test -- --runInBand`, `npm run build`, `npm run build:demo`, and `npm run e2e`. Install Chromium with `npx playwright install chromium` before browser tests. Playwright owns port 4200 during its run.
+- Validate changes with `npm run typecheck`, `npm test -- --runInBand`, `npm run build`, `npm run build:demo`, `npm run e2e`, `npm run build-storybook`, and `npm run test:storybook`. Install Chromium with `npx playwright install chromium` before browser tests. Playwright owns port 4200 for demo tests and port 6006 for static Storybook tests. Generate the ignored custom-elements manifest with `npm run analyze`; keep stories in `src/components-examples/stories/`.

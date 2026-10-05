@@ -1,0 +1,29 @@
+import { Meta, Source } from '@storybook/addon-docs/blocks';
+
+<Meta title="Concepts/Developer/Generic Providers" />
+
+# Generic Providers
+
+Extend `SearchAutocompleteElement<T>` to use another data model. Override `renderResults`
+with a lit-html template and inject a `SearchProvider<T>`. The base class manages debounce,
+loading, errors, disconnect cleanup, and stale response protection.
+
+<Source
+  language="typescript"
+  code={`import { SearchAutocompleteElement } from 'custom-elements-autocomplete/autocomplete';
+import { html } from 'lit-html';
+class CitySearch extends SearchAutocompleteElement<string> {
+  protected renderResults(cities: string[]) {
+    return html\`<ul>\${cities.map(city => html\`<li>\${city}</li>\`)}</ul>\`;
+  }
+}
+customElements.define('city-search', CitySearch);
+const search = document.createElement('city-search') as CitySearch;
+search.searchProvider = {
+  async search(query, signal) {
+    signal?.throwIfAborted();
+    return ['Toronto', 'Montreal'].filter(city => city.toLowerCase().includes(query.toLowerCase()));
+  },
+};
+document.body.append(search);`}
+/>
